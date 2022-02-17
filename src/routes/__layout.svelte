@@ -3,7 +3,7 @@
 </script>
 
 <nav>
-  <h1>TheTodoism</h1>
+  <h1>Todoism</h1>
   <a href="/">Home</a>
   <a href="/about/">About</a>
 </nav>

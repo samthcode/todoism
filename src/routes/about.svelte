@@ -1,4 +1,4 @@
-<svelte:head><title>About | TheTodoism</title></svelte:head>
+<svelte:head><title>About | Todoism</title></svelte:head>
 
 <h2>About</h2>
 

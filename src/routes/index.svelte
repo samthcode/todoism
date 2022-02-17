@@ -1,5 +1,5 @@
 <svelte:head>
-  <title>Home | TheTodoism</title>
+  <title>Home | Todoism</title>
 </svelte:head>
 
 <h2>Welcome to SvelteKit</h2>
