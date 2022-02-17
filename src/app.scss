@@ -1,1 +1,17 @@
-/* Write your global styles here, in SCSS syntax. Variables and mixins from the src/variables.scss file are available here without importing */
+body {
+  @import url("https://fonts.googleapis.com/css2?family=Open+Sans&display=swap");
+  font-family: "Open Sans", sans-serif;
+  margin: 0;
+  background-color: $bg-dark;
+  color: $text;
+}
+
+h2 {
+  color: $accent-light;
+  margin: 1.5rem;
+  font-size: 2em;
+}
+
+article {
+  margin: 1.5rem;
+}
