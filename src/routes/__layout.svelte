@@ -16,17 +16,23 @@
   }
   h1 {
     color: $accent-dark;
-    font-size: 2em;
+    font-size: 2rem;
     display: inline;
     margin-right: 1em;
   }
   nav {
     background-color: $bg-light;
-    padding: 0.75em;
+    padding: 1rem;
+  }
+  a {
+    padding-block: 1em;
   }
   a:any-link {
     font-size: 1.5em;
     color: $accent-light;
     text-decoration: none;
+  }
+  a:hover {
+    color: $accent-dark;
   }
 </style>

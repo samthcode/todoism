@@ -8,10 +8,14 @@ body {
 
 h2 {
   color: $accent-light;
-  margin: 1.5rem;
-  font-size: 2em;
+  font-size: 2rem;
+  margin: 0;
 }
 
-article {
+h1 {
+  margin: 0;
+}
+
+main {
   margin: 1.5rem;
 }
