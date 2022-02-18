@@ -1,15 +1,13 @@
 <script>
-  export let todos;
-
-  let listNames = [...new Set(todos.map(({ list }) => list))];
+  export let listNames;
 
   import { createEventDispatcher, onMount } from "svelte";
 
   let dispatch = createEventDispatcher();
 
   onMount(() => {
-    if (todos && todos.length > 0) {
-      selectList(todos[0].list);
+    if (listNames && listNames.length > 0) {
+      selectList(listNames[0]);
     }
   });
 
@@ -28,14 +26,27 @@
   .selector {
     width: 17rem;
     overflow-x: clip;
+
+    @media only screen and (max-width: $mobile-size) {
+      width: calc(100% - 3rem);
+      margin: 1.5rem;
+    }
   }
   .selector-item {
+    border-radius: 4px 4px;
     background-color: $bg-light;
     color: $text;
-    width: 100%;
     padding: 0.25em;
     margin-top: 4px;
     margin-left: 4px;
+    @media only screen and (max-width: $mobile-size) {
+      // width: 100%;
+      margin: 0;
+
+      &:not(:first-child) {
+        margin-top: .5rem;
+      }
+    }
 
     font-size: 1.25rem;
   }

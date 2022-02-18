@@ -6,6 +6,7 @@
 
   let selectedList;
   let selectedTodos;
+  let lists;
 
   function selectList(e) {
     selectedList = e.detail;
@@ -30,7 +31,7 @@
       id: uuidGeneratorV4(),
     },
     {
-      title: "Goobye",
+      title: "Goodbye",
       desc: "World",
       completed: false,
       dueDate: new Date(9999, 1, 1, 1, 1),
@@ -38,6 +39,8 @@
       id: uuidGeneratorV4(),
     },
   ];
+
+  lists = [...new Set(todos.map(({list}) => list))]
 </script>
 
 <svelte:head>
@@ -45,11 +48,10 @@
 </svelte:head>
 
 <div class="row-container">
-  <ListSelector {todos} on:select={selectList} />
+  <ListSelector listNames={lists} on:select={selectList} />
   <main>
     {#if selectedList}
-      <h2>{selectedList}</h2>
-      <TodoList {selectedTodos} />
+      <TodoList name={selectedList} todos={selectedTodos} />
     {/if}
   </main>
 </div>
@@ -58,8 +60,13 @@
   .row-container {
     display: flex;
     flex-direction: row;
-  }
-  h2 {
-    margin-bottom: 1rem;
+
+    @media only screen and (max-width: $mobile-size) {
+      display: block;
+    }
+
+    main {
+      flex: 1 1 auto;
+    }
   }
 </style>
