@@ -13,6 +13,11 @@
     selectedTodos = todos.filter(({ list }) => list === selectedList);
   }
 
+  function updateCompleted(e) {
+    todos[todos.findIndex(({ id }) => id === e.detail)].completed =
+      !todos[todos.findIndex(({ id }) => id === e.detail)].completed;
+  }
+
   let todos = [
     {
       title: "Hello",
@@ -25,7 +30,7 @@
     {
       title: "Hello",
       desc: "World",
-      completed: true,
+      completed: false,
       dueDate: new Date(),
       list: "Hello",
       id: uuidGeneratorV4(),
@@ -40,7 +45,7 @@
     },
   ];
 
-  lists = [...new Set(todos.map(({list}) => list))]
+  lists = [...new Set(todos.map(({ list }) => list))];
 </script>
 
 <svelte:head>
@@ -51,7 +56,11 @@
   <ListSelector listNames={lists} on:select={selectList} />
   <main>
     {#if selectedList}
-      <TodoList name={selectedList} todos={selectedTodos} />
+      <TodoList
+        name={selectedList}
+        todos={selectedTodos}
+        on:completed={updateCompleted}
+      />
     {/if}
   </main>
 </div>
