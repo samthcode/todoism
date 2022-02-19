@@ -8,7 +8,7 @@
   </p>
   <ul>
     <li><b>It's simple!</b> Just choose a list and add a todo!</li>
-    <li><b>It's free!</b> It isFinite, and always will be, free!</li>
+    <li><b>It's free!</b> It is, and always will be, free!</li>
     <li>
       <b>I'm just a guy.</b> I'm not some evil corporation, i'm just a guy who wants
       to have some fun!
