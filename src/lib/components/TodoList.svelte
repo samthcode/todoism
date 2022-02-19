@@ -1,22 +1,18 @@
 <script>
+  import TodoItem from "$lib/components/TodoItem.svelte";
+
   export let name;
   export let todos;
+
+  import { createEventDispatcher } from "svelte";
+
+  let dispatch = createEventDispatcher();
 </script>
 
 <h2>{name}</h2>
 
 {#each todos as todo (todo.id)}
-  <div class="card">
-    <h3>{todo.title}</h3>
-  </div>
+  <TodoItem {...todo} on:completed={(e) => {
+    dispatch("completed", e.detail)
+  }} />
 {/each}
-
-<style lang="scss">
-  .card {
-    max-width: 100%;
-    background-color: $bg-light;
-    margin-bottom: 2rem;
-    padding: 1px 16px;
-    border-radius: 4px;
-  }
-</style>
