@@ -6,6 +6,10 @@ body {
   color: $text;
 }
 
+h3 {
+  margin: 0;
+}
+
 h2 {
   color: $accent-light;
   font-size: 2rem;
@@ -20,4 +24,8 @@ h1 {
 
 main {
   margin: 1.5rem;
+}
+
+.text-warn {
+  color: red;
 }
