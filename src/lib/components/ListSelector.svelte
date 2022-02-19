@@ -30,13 +30,14 @@
     @media only screen and (max-width: $mobile-size) {
       width: calc(100% - 3rem);
       margin: 1.5rem;
+      margin-bottom: 0.5rem;
     }
   }
   .selector-item {
     border-radius: 4px 4px;
     background-color: $bg-light;
     color: $text;
-    padding: 0.25em;
+    padding: 0.25em .5em;
     margin-top: 4px;
     margin-left: 4px;
     @media only screen and (max-width: $mobile-size) {
@@ -44,7 +45,7 @@
       margin: 0;
 
       &:not(:first-child) {
-        margin-top: .5rem;
+        margin-top: 0.5rem;
       }
     }
 
