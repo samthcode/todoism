@@ -24,6 +24,12 @@
     return someDate - new Date() < 0;
   }
 
+  import { goto } from "$app/navigation";
+
+  function goToPage(e) {
+    goto(`/todo/${id}`);
+  }
+
   let dueDateFormatted = isToday(dueDate)
     ? `Today, ${dueDate.toLocaleDateString(navigator.language, {
         day: "2-digit",
@@ -42,13 +48,17 @@
       });
 </script>
 
-<div class="card">
-  <h3 class:completed>{title}{#if isOverdue(dueDate) && !completed}<span class="text-warn">&nbsp;(Overdue)</span>{/if}</h3>
+<div on:click={goToPage} class="card">
+  <h3 class:completed>
+    {title}{#if isOverdue(dueDate) && !completed}<span class="text-warn"
+        >&nbsp;(Overdue)</span
+      >{/if}
+  </h3>
   <input
     type="checkbox"
     class="complete"
     bind:checked={completed}
-    on:change={() => {
+    on:click|stopPropagation={() => {
       dispatch("completed", id);
     }}
   />
@@ -96,6 +106,10 @@
     .completed {
       text-decoration: line-through;
       font-style: italic;
+    }
+
+    &:hover {
+      background-color: lighten($bg-light, 5);
     }
   }
 </style>

@@ -1,6 +1,7 @@
 <script>
   import ListSelector from "$lib/components/ListSelector.svelte";
   import TodoList from "$lib/components/TodoList.svelte";
+  import {todos} from "$lib/stores/todos";
 
   import { v4 as uuidGeneratorV4 } from "uuid";
 
@@ -10,42 +11,15 @@
 
   function selectList(e) {
     selectedList = e.detail;
-    selectedTodos = todos.filter(({ list }) => list === selectedList);
+    selectedTodos = $todos.filter(({ list }) => list === selectedList);
   }
 
   function updateCompleted(e) {
-    todos[todos.findIndex(({ id }) => id === e.detail)].completed =
-      !todos[todos.findIndex(({ id }) => id === e.detail)].completed;
+    $todos[$todos.findIndex(({ id }) => id === e.detail)].completed =
+      !$todos[$todos.findIndex(({ id }) => id === e.detail)].completed;
   }
 
-  let todos = [
-    {
-      title: "Hello",
-      desc: "World",
-      completed: true,
-      dueDate: new Date(),
-      list: "Hello",
-      id: uuidGeneratorV4(),
-    },
-    {
-      title: "Hello",
-      desc: "World",
-      completed: false,
-      dueDate: new Date(),
-      list: "Hello",
-      id: uuidGeneratorV4(),
-    },
-    {
-      title: "Goodbye",
-      desc: "World",
-      completed: false,
-      dueDate: new Date(9999, 1, 1, 1, 1),
-      list: "World",
-      id: uuidGeneratorV4(),
-    },
-  ];
-
-  lists = [...new Set(todos.map(({ list }) => list))];
+  lists = [...new Set($todos.map(({ list }) => list))];
 </script>
 
 <svelte:head>
