@@ -5,12 +5,6 @@
 
   let dispatch = createEventDispatcher();
 
-  onMount(() => {
-    if (listNames && listNames.length > 0) {
-      selectList(listNames[0]);
-    }
-  });
-
   function selectList(name) {
     dispatch("select", name);
   }

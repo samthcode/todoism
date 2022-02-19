@@ -1,7 +1,20 @@
 <script>
   import ListSelector from "$lib/components/ListSelector.svelte";
   import TodoList from "$lib/components/TodoList.svelte";
-  import {todos} from "$lib/stores/todos";
+  import { todos } from "$lib/stores/todos";
+  import { page } from "$app/stores";
+  import { onMount } from "svelte";
+
+  let listToOpen;
+  if ($page.url.searchParams.get("list")) {
+    try {
+      listToOpen = decodeURI($page.url.searchParams.get("list"));
+    } catch (e) {
+      console.log("Could not decode URI (malformed)\nError message: " + e);
+    }
+  } else {
+    listToOpen = null;
+  }
 
   import { v4 as uuidGeneratorV4 } from "uuid";
 
@@ -10,6 +23,7 @@
   let lists;
 
   function selectList(e) {
+    listToOpen = null;
     selectedList = e.detail;
     selectedTodos = $todos.filter(({ list }) => list === selectedList);
   }
@@ -20,6 +34,20 @@
   }
 
   lists = [...new Set($todos.map(({ list }) => list))];
+
+  onMount(() => {
+    if (lists.length > 0) {
+      selectedList = lists[0];
+      selectedTodos = $todos.filter(({ list }) => list === selectedList);
+    }
+  });
+
+  $: if (listToOpen) {
+    if (lists.includes(listToOpen)) {
+      selectedList = listToOpen;
+      selectedTodos = $todos.filter(({ list }) => list === selectedList);
+    }
+  }
 </script>
 
 <svelte:head>

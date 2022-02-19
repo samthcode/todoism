@@ -8,6 +8,7 @@
   export let id;
 
   import { createEventDispatcher } from "svelte";
+  import { browser } from "$app/env";
 
   let dispatch = createEventDispatcher();
 
@@ -31,14 +32,14 @@
   }
 
   let dueDateFormatted = isToday(dueDate)
-    ? `Today, ${dueDate.toLocaleDateString(navigator.language, {
+    ? `Today, ${dueDate.toLocaleDateString(browser ? navigator.language : "en-UK", {
         day: "2-digit",
         month: "2-digit",
         year: "2-digit",
         hour: "2-digit",
         minute: "2-digit",
       })}`
-    : dueDate.toLocaleDateString(navigator.language, {
+    : dueDate.toLocaleDateString(browser ? navigator.language : "en-UK", {
         weekday: "long",
         day: "2-digit",
         month: "2-digit",
