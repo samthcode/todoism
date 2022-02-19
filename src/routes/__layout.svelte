@@ -36,7 +36,7 @@
     padding: 1rem;
 
     @media only screen and (max-width: $mobile-size) {
-      padding: 1.5rem;
+      padding: 1rem 1.5rem;
     }
   }
   a {
