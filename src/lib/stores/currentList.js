@@ -8,7 +8,7 @@ const initialValue = browser
 
 export const currentList = writable(initialValue);
 
-export const unsubscribe = currentList.subscribe((value) => {
+currentList.subscribe((value) => {
   if (browser) {
     window.localStorage.setItem("currentList", value);
   }

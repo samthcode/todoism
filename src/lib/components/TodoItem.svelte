@@ -5,6 +5,8 @@
   export let dueDate;
   export let id;
 
+  let dueDateAsDate = new Date(dueDate);
+
   import { createEventDispatcher } from "svelte";
   import { browser } from "$app/env";
 
@@ -29,8 +31,8 @@
     goto(`/todo/${id}`);
   }
 
-  let dueDateFormatted = isToday(dueDate)
-    ? `Today, ${dueDate.toLocaleDateString(
+  let dueDateFormatted = isToday(dueDateAsDate)
+    ? `Today, ${dueDateAsDate.toLocaleDateString(
         browser ? navigator.language : "en-UK",
         {
           day: "2-digit",
@@ -40,7 +42,7 @@
           minute: "2-digit",
         }
       )}`
-    : dueDate.toLocaleDateString(browser ? navigator.language : "en-UK", {
+    : dueDateAsDate.toLocaleDateString(browser ? navigator.language : "en-UK", {
         weekday: "long",
         day: "2-digit",
         month: "2-digit",
@@ -52,7 +54,7 @@
 
 <div on:click={goToPage} class="card">
   <h3 class:completed>
-    {title}{#if isOverdue(dueDate) && !completed}<span class="text-warn"
+    {title}{#if isOverdue(dueDateAsDate) && !completed}<span class="text-warn"
         >&nbsp;(Overdue)</span
       >{/if}
   </h3>

@@ -2,30 +2,13 @@
   import ListSelector from "$lib/components/ListSelector.svelte";
   import TodoList from "$lib/components/TodoList.svelte";
   import { lists } from "$lib/stores/lists";
-  import { currentList, unsubscribe } from "$lib/stores/currentList";
-  // import { page } from "$app/stores";
-  import { onMount, onDestroy } from "svelte";
-
-  onDestroy(() => {
-    unsubscribe();
-    unsub();
-  });
-
-  // let listToOpen;
-  // if ($page.url.searchParams.get("list")) {
-  //   try {
-  //     listToOpen = decodeURI($page.url.searchParams.get("list"));
-  //   } catch (e) {
-  //     console.log("Could not decode URI (malformed)\nError message: " + e);
-  //   }
-  // } else {
-  //   listToOpen = null;
-  // }
+  import { currentList } from "$lib/stores/currentList";
+  import { onMount } from "svelte";
 
   import { v4 as uuidGeneratorV4 } from "uuid";
 
   let selectedList;
-  const unsub = currentList.subscribe((value) => {
+  currentList.subscribe((value) => {
     selectedList = $lists.find(({ name }) => name === value);
   });
 
@@ -45,16 +28,19 @@
       $lists
         .find(({ name }) => name === list)
         ?.todos.find(({ id }) => id === someId)
-    )
+    ) {
       $lists
         .find(({ name }) => name === list)
         .todos.find(({ id }) => id === someId).completed = !$lists
         .find(({ name }) => name === list)
         .todos.find(({ id }) => id === someId).completed;
-    else
+
+      $lists = $lists;
+    } else {
       console.log(
         `updateCompleted() failed: couldn't find list: "${list}" or todo with id: "${someId}"`
       );
+    }
   }
 
   onMount(() => {
