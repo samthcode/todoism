@@ -3,8 +3,6 @@
   export let desc;
   export let completed;
   export let dueDate;
-  export let list;
-  list;
   export let id;
 
   import { createEventDispatcher } from "svelte";

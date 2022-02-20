@@ -1,7 +1,6 @@
 <script>
-  export let listNames;
-
-  import { createEventDispatcher, onMount } from "svelte";
+  import { createEventDispatcher } from "svelte";
+  import { lists } from "$lib/stores/lists";
 
   let dispatch = createEventDispatcher();
 
@@ -11,8 +10,10 @@
 </script>
 
 <div class="selector">
-  {#each listNames as list}
-    <div class="selector-item" on:click={(e) => selectList(list)}>{list}</div>
+  {#each $lists as list}
+    <div class="selector-item" on:click={(e) => selectList(list.name)}>
+      {list.name}
+    </div>
   {/each}
 </div>
 
@@ -34,7 +35,7 @@
     border-radius: 4px;
     background-color: $bg-light;
     color: $text;
-    padding: .75em .5em;
+    padding: 0.75em 0.5em;
     margin-top: 1rem;
     @media only screen and (max-width: $mobile-size) {
       // width: 100%;

@@ -1,53 +1,69 @@
 <script>
   import ListSelector from "$lib/components/ListSelector.svelte";
   import TodoList from "$lib/components/TodoList.svelte";
-  import { todos } from "$lib/stores/todos";
-  import { page } from "$app/stores";
-  import { onMount } from "svelte";
+  import { lists } from "$lib/stores/lists";
+  import { currentList, unsubscribe } from "$lib/stores/currentList";
+  // import { page } from "$app/stores";
+  import { onMount, onDestroy } from "svelte";
 
-  let listToOpen;
-  if ($page.url.searchParams.get("list")) {
-    try {
-      listToOpen = decodeURI($page.url.searchParams.get("list"));
-    } catch (e) {
-      console.log("Could not decode URI (malformed)\nError message: " + e);
-    }
-  } else {
-    listToOpen = null;
-  }
+  onDestroy(() => {
+    unsubscribe();
+    unsub();
+  });
+
+  // let listToOpen;
+  // if ($page.url.searchParams.get("list")) {
+  //   try {
+  //     listToOpen = decodeURI($page.url.searchParams.get("list"));
+  //   } catch (e) {
+  //     console.log("Could not decode URI (malformed)\nError message: " + e);
+  //   }
+  // } else {
+  //   listToOpen = null;
+  // }
 
   import { v4 as uuidGeneratorV4 } from "uuid";
 
   let selectedList;
-  let selectedTodos;
-  let lists;
-
-  function selectList(e) {
-    listToOpen = null;
-    selectedList = e.detail;
-    selectedTodos = $todos.filter(({ list }) => list === selectedList);
-  }
-
-  function updateCompleted(e) {
-    $todos[$todos.findIndex(({ id }) => id === e.detail)].completed =
-      !$todos[$todos.findIndex(({ id }) => id === e.detail)].completed;
-  }
-
-  lists = [...new Set($todos.map(({ list }) => list))];
-
-  onMount(() => {
-    if (lists.length > 0) {
-      selectedList = lists[0];
-      selectedTodos = $todos.filter(({ list }) => list === selectedList);
-    }
+  const unsub = currentList.subscribe((value) => {
+    selectedList = $lists.find(({ name }) => name === value);
   });
 
-  $: if (listToOpen) {
-    if (lists.includes(listToOpen)) {
-      selectedList = listToOpen;
-      selectedTodos = $todos.filter(({ list }) => list === selectedList);
-    }
+  function selectList(e) {
+    setSelectedListByListName(e.detail);
   }
+
+  function setSelectedListByListName(someName) {
+    $currentList = someName;
+    console.log(`currentList = ${$currentList}`);
+  }
+
+  function updateCompleted({ detail: { id: someId, list } }) {
+    // list in e.detail helps me find the correct list to look in
+    // instead of having to search every list
+    if (
+      $lists
+        .find(({ name }) => name === list)
+        ?.todos.find(({ id }) => id === someId)
+    )
+      $lists
+        .find(({ name }) => name === list)
+        .todos.find(({ id }) => id === someId).completed = !$lists
+        .find(({ name }) => name === list)
+        .todos.find(({ id }) => id === someId).completed;
+    else
+      console.log(
+        `updateCompleted() failed: couldn't find list: "${list}" or todo with id: "${someId}"`
+      );
+  }
+
+  onMount(() => {
+    if (!$currentList && $lists.length > 0) $currentList = $lists[0]?.name;
+  });
+
+  // $: if (listToOpen) {
+  //   setSelectedListByListName(listToOpen);
+  // }
 </script>
 
 <svelte:head>
@@ -56,15 +72,11 @@
 
 <div class="row-container">
   <div class="ls">
-    <ListSelector listNames={lists} on:select={selectList} />
+    <ListSelector on:select={selectList} />
   </div>
   <main>
     {#if selectedList}
-      <TodoList
-        name={selectedList}
-        todos={selectedTodos}
-        on:completed={updateCompleted}
-      />
+      <TodoList list={selectedList} on:completed={updateCompleted} />
     {/if}
   </main>
 </div>
