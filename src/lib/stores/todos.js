@@ -4,7 +4,12 @@ import { v4 as uuidGeneratorV4 } from "uuid";
 export let todos = writable([
   {
     title: "Hello",
-    desc: "World",
+    desc: `Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatibus quos
+voluptas facere? Saepe vitae suscipit in doloremque cumque iste, aperiam
+accusantium nulla placeat perspiciatis tenetur deserunt sit quam nihil
+voluptate. Repellat non tempora unde dicta officiis quae nihil maxime ut!
+Tempore perspiciatis omnis iusto deserunt, magni dolorem fuga adipisci
+doloremque.`,
     completed: true,
     dueDate: new Date(),
     list: "Hello",

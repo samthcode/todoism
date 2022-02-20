@@ -12,7 +12,10 @@
 <h2>{name}</h2>
 
 {#each todos as todo (todo.id)}
-  <TodoItem {...todo} on:completed={(e) => {
-    dispatch("completed", e.detail)
-  }} />
+  <TodoItem
+    {...todo}
+    on:completed={(e) => {
+      dispatch("completed", e.detail);
+    }}
+  />
 {/each}

@@ -55,7 +55,9 @@
 </svelte:head>
 
 <div class="row-container">
-  <ListSelector listNames={lists} on:select={selectList} />
+  <div class="ls">
+    <ListSelector listNames={lists} on:select={selectList} />
+  </div>
   <main>
     {#if selectedList}
       <TodoList
@@ -71,6 +73,10 @@
   .row-container {
     display: flex;
     flex-direction: row;
+
+    .ls {
+      flex: 0 0 0;
+    }
 
     @media only screen and (max-width: $mobile-size) {
       display: block;

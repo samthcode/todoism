@@ -21,6 +21,9 @@
     width: 17rem;
     overflow-x: clip;
 
+    margin-left: 1.5rem;
+    margin-top: 1.5rem;
+
     @media only screen and (max-width: $mobile-size) {
       width: calc(100% - 3rem);
       margin: 1.5rem;
@@ -28,12 +31,11 @@
     }
   }
   .selector-item {
-    border-radius: 4px 4px;
+    border-radius: 4px;
     background-color: $bg-light;
     color: $text;
-    padding: 0.25em .5em;
-    margin-top: 4px;
-    margin-left: 4px;
+    padding: .75em .5em;
+    margin-top: 1rem;
     @media only screen and (max-width: $mobile-size) {
       // width: 100%;
       margin: 0;
