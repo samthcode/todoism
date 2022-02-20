@@ -32,13 +32,16 @@
   }
 
   let dueDateFormatted = isToday(dueDate)
-    ? `Today, ${dueDate.toLocaleDateString(browser ? navigator.language : "en-UK", {
-        day: "2-digit",
-        month: "2-digit",
-        year: "2-digit",
-        hour: "2-digit",
-        minute: "2-digit",
-      })}`
+    ? `Today, ${dueDate.toLocaleDateString(
+        browser ? navigator.language : "en-UK",
+        {
+          day: "2-digit",
+          month: "2-digit",
+          year: "2-digit",
+          hour: "2-digit",
+          minute: "2-digit",
+        }
+      )}`
     : dueDate.toLocaleDateString(browser ? navigator.language : "en-UK", {
         weekday: "long",
         day: "2-digit",
@@ -91,6 +94,10 @@
 
     .desc {
       grid-area: desc;
+
+      text-overflow: ellipsis; /* IE, Safari (WebKit) */
+      overflow: hidden; /* don't show excess chars */
+      white-space: nowrap; /* force single line */
     }
 
     .due-date {
