@@ -1,16 +1,21 @@
 <script>
+  import { onMount } from "svelte";
   import { page } from "$app/stores";
   import { browser } from "$app/env";
   import { lists } from "$lib/stores/lists";
-  import { v4 as uuidGeneratorV4 } from "uuid";
+  import { isOverdue, formatDueDate } from "$lib/dateUtils.js";
   let theId = $page.params.todo;
-  let todo;
-  $: for (const l of $lists) {
-    todo = l.todos.find(({ id }) => id === theId);
-    if (todo) {
-      break;
+  let todo, dueDateAsDate, dueDateFormatted;
+  onMount(() => {
+    for (const l of $lists) {
+      todo = l.todos.find(({ id }) => id === theId);
+      if (todo) {
+        dueDateAsDate = new Date(todo.dueDate);
+        dueDateFormatted = formatDueDate(dueDateAsDate);
+        break;
+      }
     }
-  }
+  });
 
   import { goto } from "$app/navigation";
 
@@ -64,47 +69,6 @@
       goBack();
     }
   }
-
-  function isToday(someDate) {
-    const today = new Date();
-    return (
-      someDate.getDate() == today.getDate() &&
-      someDate.getMonth() == today.getMonth() &&
-      someDate.getFullYear() == today.getFullYear()
-    );
-  }
-
-  function isOverdue(someDate) {
-    return someDate - new Date() < 0;
-  }
-
-  let dueDateAsDate;
-  $: if (todo) dueDateAsDate = new Date(todo.dueDate);
-
-  let dueDateFormatted;
-  $: if (todo)
-    dueDateFormatted = isToday(dueDateAsDate)
-      ? `Today, ${dueDateAsDate.toLocaleDateString(
-          browser ? navigator.language : "en-UK",
-          {
-            day: "2-digit",
-            month: "2-digit",
-            year: "2-digit",
-            hour: "2-digit",
-            minute: "2-digit",
-          }
-        )}`
-      : dueDateAsDate.toLocaleDateString(
-          browser ? navigator.language : "en-UK",
-          {
-            weekday: "long",
-            day: "2-digit",
-            month: "2-digit",
-            year: "2-digit",
-            hour: "2-digit",
-            minute: "2-digit",
-          }
-        );
 </script>
 
 <main>
