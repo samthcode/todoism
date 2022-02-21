@@ -20,7 +20,7 @@ export function formatDueDate(date) {
       {
         day: "2-digit",
         month: "2-digit",
-        year: "2-digit",
+        year: "numeric",
         hour: "2-digit",
         minute: "2-digit",
       }
@@ -30,7 +30,7 @@ export function formatDueDate(date) {
       weekday: "long",
       day: "2-digit",
       month: "2-digit",
-      year: "2-digit",
+      year: "numeric",
       hour: "2-digit",
       minute: "2-digit",
     });
