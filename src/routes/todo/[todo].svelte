@@ -43,6 +43,28 @@
     }
   }
 
+  function deleteTodo() {
+    if (!browser) return;
+    if (
+      todo &&
+      window.confirm(`Are you sure you want to delete todo "${todo.title}"?`)
+    ) {
+      let listIndex = $lists.findIndex(
+        ({ todos }) => !!todos.find(({ id }) => id === theId)
+      );
+      if (listIndex === -1) {
+        console.log(`updateTodo(): Couldn't find todo with id: "${theId}"!`);
+        return;
+      }
+      let todoIndex = $lists[listIndex].todos.findIndex(
+        ({ id }) => id === theId
+      );
+      $lists[listIndex].todos.splice(todoIndex);
+      $lists = $lists;
+      goBack();
+    }
+  }
+
   function isToday(someDate) {
     const today = new Date();
     return (
@@ -87,16 +109,7 @@
 
 <main>
   <button class="btn" on:click={goBack}>Back</button>
-  <!-- <button
-    class="btn"
-    on:click={() => {
-      updateTodo({
-        title: "boo",
-        desc: "boo!",
-      });
-    }}
-    >Change the title and description to "boo" and "boo!" respectively.</button
-  > -->
+  <button class="btn-warn delete" on:click={deleteTodo}>Delete</button>
   {#if todo}
     <div class="todo-container">
       <div class="small title-label">Title:</div>
@@ -118,6 +131,10 @@
 </main>
 
 <style>
+  .delete {
+    margin-left: 1rem;
+  }
+
   .todo-container {
     margin-top: 0.75rem;
     display: grid;

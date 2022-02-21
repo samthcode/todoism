@@ -27,7 +27,7 @@ main {
 }
 
 .text-warn {
-  color: red;
+  color: rgb(199, 0, 0);
 }
 
 .btn {
@@ -40,5 +40,13 @@ main {
 
   &:hover {
     background-color: lighten($bg-light, 5);
+  }
+}
+
+.btn-warn {
+  @extend .btn;
+  background-color: darkred;
+  &:hover {
+    background-color: lighten(darkred, 5);
   }
 }
