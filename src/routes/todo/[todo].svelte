@@ -25,7 +25,7 @@
   import { goto } from "$app/navigation";
 
   function goBack() {
-    goto("/");
+    if (browser) history.back();
   }
 
   function updateTodo(newTodo) {
