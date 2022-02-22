@@ -85,8 +85,8 @@
 </script>
 
 <main>
+  <button class="btn" on:click={goBack}>Back</button>
   {#if todo}
-    <button class="btn" on:click={goBack}>Back</button>
     <button
       class="btn edit"
       on:click={() => {
