@@ -28,7 +28,7 @@
     if (browser) history.back();
   }
 
-  function updateTodo(newTodo) {
+  function updateTodo(theNewOne) {
     if (todo) {
       let listIndex = $lists.findIndex(
         ({ todos }) => !!todos.find(({ id }) => id === theId)
@@ -41,13 +41,19 @@
         ({ id }) => id === theId
       );
 
-      if (newTodo.title)
-        $lists[listIndex].todos[todoIndex].title = newTodo.title;
+      if (theNewOne.title)
+        $lists[listIndex].todos[todoIndex].title = theNewOne.title;
 
-      if (newTodo.desc) $lists[listIndex].todos[todoIndex].desc = newTodo.desc;
+      if (theNewOne.desc)
+        $lists[listIndex].todos[todoIndex].desc = theNewOne.desc;
 
-      if (newTodo.dueDate)
-        $lists[listIndex].todos[todoIndex].dueDate = new Date(newTodo.dueDate);
+      if (theNewOne.dueDate)
+        $lists[listIndex].todos[todoIndex].dueDate = new Date(
+          theNewOne.dueDate
+        );
+
+      if (theNewOne.completed !== undefined)
+        $lists[listIndex].todos[todoIndex].completed = theNewOne.completed;
 
       $lists = $lists;
     }
@@ -115,17 +121,28 @@
 
     <div class="todo-container">
       <div class="small title-label">Title:</div>
-      <h2 class="title">
+      <h2 class="title" class:completed={todo.completed}>
         {todo.title}{#if isOverdue(dueDateAsDate) && !todo.completed}<span
             class="text-warn">&nbsp;(Overdue)</span
           >{/if}
       </h2>
       <div class="small desc-label">Description:</div>
-      <div class="desc">{todo.desc}</div>
+      <div class="desc" class:completed={todo.completed}>{todo.desc}</div>
       {#if dueDateFormatted}
         <div class="small due-date-label">Due Date:</div>
-        <div class="due-date">Due {dueDateFormatted}</div>
+        <div class="due-date" class:completed={todo.completed}>
+          Due {dueDateFormatted}
+        </div>
       {/if}
+      <div class="small completed-label">Completed:</div>
+      <input
+        type="checkbox"
+        class="completed-bool completed-checkbox"
+        bind:checked={todo.completed}
+        on:change={() => {
+          updateTodo({ completed: todo.completed });
+        }}
+      />
     </div>
   {:else}
     <h2>Error: Could not find todo with id '{theId}'</h2>
@@ -133,6 +150,10 @@
 </main>
 
 <style lang="scss">
+  .completed-checkbox {
+    width: 1rem;
+  }
+
   .edit-todo {
     margin-top: 0.5rem;
     margin-bottom: 1.5rem;
@@ -172,9 +193,9 @@
     display: grid;
     column-gap: 1rem;
     row-gap: 2rem;
-    grid-template-rows: min-content min-content min-content;
+    grid-template-rows: min-content min-content min-content min-content;
     grid-template-columns: min-content auto;
-    grid-template-areas: "title-label title" "desc-label desc" "due-date-label due-date";
+    grid-template-areas: "title-label title" "desc-label desc" "due-date-label due-date" "completed-label completed";
   }
 
   .small {
@@ -210,6 +231,14 @@
 
   .due-date-label {
     grid-area: due-date-label;
+  }
+
+  .completed-bool {
+    grid-area: completed;
+  }
+
+  .completed-label {
+    grid-area: completed-label;
   }
 
   h2,

@@ -82,11 +82,6 @@
       height: 2em;
     }
 
-    .completed {
-      text-decoration: line-through;
-      font-style: italic;
-    }
-
     &:hover {
       background-color: lighten($bg-light, 5);
     }
