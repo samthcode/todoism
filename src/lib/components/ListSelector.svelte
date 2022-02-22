@@ -26,7 +26,7 @@
     margin-top: 1.5rem;
 
     @media only screen and (max-width: $mobile-size) {
-      width: calc(100% - 3rem);
+      width: auto;
       margin: 1.5rem;
       margin-bottom: 0.5rem;
     }
@@ -38,7 +38,6 @@
     padding: 0.75em 0.5em;
     margin-top: 1rem;
     @media only screen and (max-width: $mobile-size) {
-      // width: 100%;
       margin: 0;
 
       &:not(:first-child) {
