@@ -52,6 +52,7 @@
     text-align: center;
     vertical-align: middle;
     flex-shrink: 0;
+    flex-grow: 0;
     display: none;
     @media (hover: none) {
       display: inline;
