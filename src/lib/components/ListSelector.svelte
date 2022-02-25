@@ -57,8 +57,8 @@
     @media (hover: none) {
       display: inline;
     }
-    width: 23px;
-    height: 23px;
+    width: 1.4rem;
+    height: 1.4rem;
     font-size: 14px;
     border-radius: 50%;
 
