@@ -57,11 +57,11 @@
     @media (hover: none) {
       display: inline;
     }
-    width: 1.4rem;
-    height: 1.4rem;
     font-size: 14px;
     border-radius: 4px;
     padding: auto 0;
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
 
     background-color: $warning-colour;
     border: none;
