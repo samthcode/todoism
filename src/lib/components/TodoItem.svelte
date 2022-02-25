@@ -10,7 +10,7 @@
   import { createEventDispatcher } from "svelte";
   import { browser } from "$app/env";
 
-  import {isOverdue, formatDueDate} from "$lib/dateUtils.js";
+  import {isOverdue, formatDueDate} from "$lib/utils/date.js";
 
   let dispatch = createEventDispatcher();
 

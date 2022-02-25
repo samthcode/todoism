@@ -45,13 +45,61 @@ main {
 
 .btn-warn {
   @extend .btn;
-  background-color: darkred;
+  background-color: $warning-colour;
   &:hover {
-    background-color: lighten(darkred, 5);
+    background-color: lighten($warning-colour, 5);
   }
 }
 
 .completed {
   text-decoration: line-through;
   font-style: italic;
+}
+
+.todo-container {
+  margin-top: 0.75rem;
+  display: grid;
+  column-gap: 1rem;
+  row-gap: 2rem;
+  grid-template-rows: min-content min-content min-content min-content;
+  grid-template-columns: min-content auto;
+  grid-template-areas: "title-label title" "desc-label desc" "due-date-label due-date" "completed-label completed";
+}
+
+.small {
+  font-size: 14px;
+  margin-bottom: 0.2em;
+}
+
+.title {
+  grid-area: title;
+}
+
+.title-label {
+  grid-area: title-label;
+}
+
+.desc {
+  font-size: 1.125rem;
+  grid-area: desc;
+}
+
+.desc-label {
+  grid-area: desc-label;
+}
+
+.due-date {
+  grid-area: due-date;
+}
+
+.due-date-label {
+  grid-area: due-date-label;
+}
+
+.completed-bool {
+  grid-area: completed;
+}
+
+.completed-label {
+  grid-area: completed-label;
 }
