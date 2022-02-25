@@ -7,6 +7,14 @@
   function selectList(name) {
     dispatch("select", name);
   }
+
+  let newListName = "";
+
+  function newList() {
+    if (newListName === "") return;
+    dispatch("newlist", newListName);
+    newListName = "";
+  }
 </script>
 
 <div class="selector">
@@ -15,9 +23,25 @@
       {list.name}
     </div>
   {/each}
+  <div class="selector-item new-list">
+    <input type="text" bind:value={newListName} />
+    <button class="btn new-list-btn" on:click={newList}>New List</button>
+  </div>
 </div>
 
 <style lang="scss">
+  .new-list {
+    display: flex;
+    justify-content: space-between;
+  }
+  .new-list-btn {
+    background-color: $accent-light;
+    &:hover {
+      background-color: lighten($accent-light, 5);
+    }
+    color: $bg-dark;
+    margin-bottom: 0;
+  }
   .selector {
     width: 17rem;
     overflow-x: clip;
@@ -25,10 +49,11 @@
     margin-left: 1.5rem;
     margin-top: 1.5rem;
 
+    margin-bottom: 0.5rem;
+
     @media only screen and (max-width: $mobile-size) {
       width: auto;
       margin: 1.5rem;
-      margin-bottom: 0.5rem;
     }
   }
   .selector-item {

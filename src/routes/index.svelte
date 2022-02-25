@@ -66,9 +66,14 @@
     if (!$currentList && $lists.length > 0) $currentList = $lists[0]?.name;
   });
 
-  // $: if (listToOpen) {
-  //   setSelectedListByListName(listToOpen);
-  // }
+  function addNewList(e) {
+    if ($lists.find(({name}) => name === e.detail)) return;
+    $lists.push({
+      name: e.detail,
+      todos: []
+    });
+    $lists = $lists;
+  }
 </script>
 
 <svelte:head>
@@ -77,7 +82,7 @@
 
 <div class="row-container">
   <div class="ls">
-    <ListSelector on:select={selectList} />
+    <ListSelector on:newlist={addNewList} on:select={selectList} />
   </div>
   <main>
     {#if selectedList}
