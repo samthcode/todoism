@@ -18,22 +18,6 @@ export let lists = writable(
             },
           ],
         },
-        {
-          name: "List2",
-          todos: [
-            {
-              title: "Goodbye",
-              desc: "Mes amis.",
-              completed: true,
-              dueDate: new Date(2032, 0, 1),
-              id: uuidGeneratorV4(),
-            },
-          ],
-        },
-        {
-          name: "List3",
-          todos: [],
-        },
       ]
 );
 
