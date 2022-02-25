@@ -67,12 +67,33 @@
   });
 
   function addNewList(e) {
-    if ($lists.find(({name}) => name === e.detail)) return;
+    if ($lists.find(({ name }) => name === e.detail)) return;
     $lists.push({
       name: e.detail,
-      todos: []
+      todos: [],
     });
     $lists = $lists;
+    $currentList = e.detail;
+  }
+
+  function removeList(e) {
+    let ind = $lists.findIndex(({ name }) => name === e.detail);
+    if (ind == -1) {
+      console.log(`removeList(): Couldn't find list with name: "${e.detail}"`);
+      return;
+    }
+    if (
+      !confirm(
+        `Are you sure you want to remove list: "${e.detail}" and all the todos contained within?\n\nTHIS ACTION IS IRREVERSIBLE!`
+      )
+    )
+      return;
+    $lists.splice(ind, 1);
+    $lists = $lists;
+
+    if ($currentList === e.detail) {
+      setSelectedListByListName($lists[0]?.name);
+    }
   }
 </script>
 
@@ -82,7 +103,11 @@
 
 <div class="row-container">
   <div class="ls">
-    <ListSelector on:newlist={addNewList} on:select={selectList} />
+    <ListSelector
+      on:removelist={removeList}
+      on:newlist={addNewList}
+      on:select={selectList}
+    />
   </div>
   <main>
     {#if selectedList}

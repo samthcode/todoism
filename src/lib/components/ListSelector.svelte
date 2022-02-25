@@ -15,26 +15,58 @@
     dispatch("newlist", newListName);
     newListName = "";
   }
+
+  function removeList(name) {
+    dispatch("removelist", name);
+  }
 </script>
 
 <div class="selector">
   {#each $lists as list}
     <div class="selector-item" on:click={(e) => selectList(list.name)}>
-      {list.name}
+      <div class="list-name">{list.name}</div>
+      <button
+        class="remove-list"
+        on:click|stopPropagation={() => {
+          removeList(list.name);
+        }}>X</button
+      >
     </div>
   {/each}
-  <div class="selector-item new-list">
-    <input type="text" bind:value={newListName} />
+  <div class="selector-item">
+    <input type="text" class="new-list-inp" bind:value={newListName} />
     <button class="btn new-list-btn" on:click={newList}>New List</button>
   </div>
 </div>
 
 <style lang="scss">
-  .new-list {
-    display: flex;
-    justify-content: space-between;
+  .new-list-inp {
+    flex: 1 1 0;
+  }
+  .list-name {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .remove-list {
+    flex-shrink: 0;
+    display: none;
+    @media (hover: none) {
+      display: inline;
+    }
+    width: 23px;
+    height: 23px;
+    border-radius: 50%;
+
+    background-color: $warning-colour;
+    border: none;
+    color: white;
+  }
+  .selector-item:hover .remove-list {
+    display: inline;
   }
   .new-list-btn {
+    margin-left: 0.5rem;
     background-color: $accent-light;
     &:hover {
       background-color: lighten($accent-light, 5);
@@ -57,6 +89,9 @@
     }
   }
   .selector-item {
+    display: flex;
+    justify-content: space-between;
+
     border-radius: 4px;
     background-color: $bg-light;
     color: $text;
