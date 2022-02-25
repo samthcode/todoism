@@ -60,7 +60,8 @@
     width: 1.4rem;
     height: 1.4rem;
     font-size: 14px;
-    border-radius: 50%;
+    border-radius: 4px;
+    padding: auto 0;
 
     background-color: $warning-colour;
     border: none;
