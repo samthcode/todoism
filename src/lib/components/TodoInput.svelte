@@ -13,7 +13,17 @@
   const dispatch = createEventDispatcher();
 
   function submit() {
+    if (!newTodo.dueDate) {
+      let now = new Date();
+      now.setHours(now.getHours() + 24);  
+      newTodo.dueDate = now.toString();
+    }
     dispatch("submit", newTodo);
+    newTodo = {
+      title: "",
+      desc: "",
+      dueDate: new Date().toString(),
+    };
   }
 </script>
 
@@ -50,6 +60,9 @@
 
   .submit-new-todo {
     background-color: $accent-light;
+    &:hover {
+      background-color: lighten($accent-light, 5);
+    }
     color: $bg-dark;
     margin-bottom: 0;
   }

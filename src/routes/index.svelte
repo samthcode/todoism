@@ -4,6 +4,7 @@
   import { lists } from "$lib/stores/lists";
   import { currentList } from "$lib/stores/currentList";
   import { onMount } from "svelte";
+  import { browser } from "$app/env";
 
   import { v4 as uuidGeneratorV4 } from "uuid";
 
@@ -19,6 +20,24 @@
   function setSelectedListByListName(someName) {
     $currentList = someName;
     console.log(`currentList = ${$currentList}`);
+  }
+
+  function addNewTodo(e) {
+    if (!$lists.find(({ name }) => name === e.detail.listName)) {
+      console.log(
+        `addNewTodo(): Couldn't find list with name: "${e.detail.listName}"`
+      );
+      return;
+    }
+    $lists
+      .find(({ name }) => name === e.detail.listName)
+      .todos.push({
+        ...e.detail.todo,
+        id: uuidGeneratorV4(),
+        completed: false,
+      });
+    $lists = $lists;
+    if (browser) location.reload();
   }
 
   function updateCompleted({ detail: { id: someId, list } }) {
@@ -62,7 +81,11 @@
   </div>
   <main>
     {#if selectedList}
-      <TodoList list={selectedList} on:completed={updateCompleted} />
+      <TodoList
+        list={selectedList}
+        on:addtodo={addNewTodo}
+        on:completed={updateCompleted}
+      />
     {/if}
   </main>
 </div>
