@@ -49,6 +49,8 @@
     text-overflow: ellipsis;
   }
   .remove-list {
+    text-align: center;
+    vertical-align: middle;
     flex-shrink: 0;
     display: none;
     @media (hover: none) {
@@ -56,6 +58,7 @@
     }
     width: 23px;
     height: 23px;
+    font-size: 14px;
     border-radius: 50%;
 
     background-color: $warning-colour;
