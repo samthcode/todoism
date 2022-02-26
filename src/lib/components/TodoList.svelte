@@ -7,6 +7,8 @@
 
   onMount(() => {
     list.todos = list.todos.sort((a, b) => {
+      if (a.completed) return 1;
+      if (b.completed) return -1;
       if (!a.dueDate && !b.dueDate) return 0;
       if (!a.dueDate) return -1;
       if (!b.dueDate) return 1;
