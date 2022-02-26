@@ -17,7 +17,7 @@
 <style lang="scss">
   nav {
     background-color: $bg-light;
-    padding: 1rem;
+    padding: 1rem 1.5rem;
     
     display: flex;
     flex-direction: row;
