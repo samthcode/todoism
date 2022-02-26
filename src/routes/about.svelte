@@ -14,8 +14,9 @@
       to have some fun!
     </li>
     <li>
-      <b>It's secure.</b> Todoism just uses a JS object (and will use indexedDB in
-      future) so there is no risk of your todos being leaked!
+      <b>It's secure.</b> Todoism uses localStorage (stored solely on-device, no
+      web servers involved) so there is no risk of your todos being accessed by online
+      hackers!
     </li>
   </ul>
 </main>
