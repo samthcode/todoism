@@ -22,17 +22,19 @@
     console.log(`currentList = ${$currentList}`);
   }
 
-  function addNewTodo(e) {
-    if (!$lists.find(({ name }) => name === e.detail.listName)) {
+  function addNewTodo({detail: {todo, listName}}) {
+    if (!$lists.find(({ name }) => name === listName)) {
       console.log(
-        `addNewTodo(): Couldn't find list with name: "${e.detail.listName}"`
+        `addNewTodo(): Couldn't find list with name: "${listName}"`
       );
       return;
     }
+    if (todo.title === undefined) return;
     $lists
-      .find(({ name }) => name === e.detail.listName)
+      .find(({ name }) => name === listName)
       .todos.push({
-        ...e.detail.todo,
+        ...todo,
+        desc: todo.desc ?? "",
         id: uuidGeneratorV4(),
         completed: false,
       });
