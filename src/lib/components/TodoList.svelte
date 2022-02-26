@@ -28,6 +28,8 @@
 
 <h2>{list.name}</h2>
 
+<TodoInput defaults={{}} prompt="Add Todo:" on:submit={addNewTodo} />
+
 {#each list.todos as todo (todo.id)}
   <TodoItem
     {...todo}
@@ -37,4 +39,3 @@
   />
 {/each}
 
-<TodoInput defaults={{}} prompt="Add Todo:" on:submit={addNewTodo} />
