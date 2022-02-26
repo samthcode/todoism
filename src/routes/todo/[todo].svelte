@@ -73,7 +73,7 @@
       let todoIndex = $lists[listIndex].todos.findIndex(
         ({ id }) => id === theId
       );
-      $lists[listIndex].todos.splice(todoIndex);
+      $lists[listIndex].todos.splice(todoIndex, 1);
       $lists = $lists;
       goBack();
     }
@@ -123,7 +123,7 @@
           {dueDateFormatted}
         </div>
       {:else}
-      <div class="due-date" class:completed={todo.completed}>
+        <div class="due-date" class:completed={todo.completed}>
           &lt; Not Set &gt;
         </div>
       {/if}
