@@ -143,6 +143,10 @@
 </main>
 
 <style lang="scss">
+  .desc {
+    white-space: pre-wrap;
+  }
+
   .todo-inp-cont {
     display: none;
   }
