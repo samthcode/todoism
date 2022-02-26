@@ -22,18 +22,11 @@
   }
 
   function editList(name, newValue) {
-    dispatch("editlist", {listName: name, newValue})
+    dispatch("editlist", { listName: name, newValue });
   }
 
   let editingLists = false;
 </script>
-
-<button
-  class="btn-accent edit-lists-btn"
-  on:click={() => {
-    editingLists = !editingLists;
-  }}>{#if !editingLists}Edit Lists{:else}Done{/if}</button
->
 
 <div class="selector">
   {#each $lists as list}
@@ -43,7 +36,9 @@
           class="list-name"
           value={list.name}
           on:click|stopPropagation
-          on:change={(e) => {editList(list.name, e.target.value)}}
+          on:change={(e) => {
+            editList(list.name, e.target.value);
+          }}
         />
       {:else}
         <div class="list-name">{list.name}</div>
@@ -62,10 +57,18 @@
   </div>
 </div>
 
+<button
+  class="btn-accent edit-lists-btn"
+  on:click={() => {
+    editingLists = !editingLists;
+  }}
+  >{#if !editingLists}Edit Lists{:else}Done{/if}</button
+>
+
 <style lang="scss">
   .edit-lists-btn {
     margin: 1.5rem;
-    margin-bottom: 0rem;
+    margin-top: 0;
   }
   .new-list-inp {
     flex: 1 1 0;
@@ -105,14 +108,14 @@
     width: 17rem;
     overflow-x: clip;
 
+    margin-top: 1.5rem;
     margin-left: 1.5rem;
-
-    margin-bottom: 0.5rem;
+    margin-bottom: 1rem;
 
     @media only screen and (max-width: $mobile-size) {
       width: auto;
-      margin: 1.5rem;
-      marin-top: 0;
+      margin-right: 1.5rem;
+      margin-bottom: 0.5rem;
     }
   }
   .selector-item {
@@ -123,13 +126,14 @@
     background-color: $bg-light;
     color: $text;
     padding: 0.75em 0.5em;
-    margin-top: 1rem;
-    @media only screen and (max-width: $mobile-size) {
-      margin: 0;
-
-      &:not(:first-child) {
+    &:not(:first-child) {
+      margin-top: 1rem;
+      @media only screen and (max-width: $mobile-size) {
         margin-top: 0.5rem;
       }
+    }
+    @media only screen and (max-width: $mobile-size) {
+      margin: 0;
     }
 
     font-size: 1.25rem;

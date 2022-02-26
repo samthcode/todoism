@@ -96,11 +96,11 @@
     }
   }
 
-  function editList({ detail: {listName, newValue} }) {
+  function editList({ detail: { listName, newValue } }) {
     let ind = $lists.findIndex(({ name }) => name === listName);
     if (ind === -1) {
       console.log(`editList(): Couldn't find list with name: "${listName}"`);
-      return
+      return;
     }
 
     $lists[ind].name = newValue;
@@ -142,6 +142,7 @@
 
     .ls {
       flex: 0 0 0;
+      margin-bottom: 0;
     }
 
     @media only screen and (max-width: $mobile-size) {
@@ -150,6 +151,9 @@
 
     main {
       flex: 1 1 auto;
+      @media only screen and (max-width: $mobile-size) {
+        margin-top: 0;
+      }
     }
   }
 </style>
