@@ -48,7 +48,10 @@
   .card {
     max-width: 100%;
     background-color: $bg-light;
-    margin-bottom: 2rem;
+    margin-bottom: 1.5rem;
+    @media only screen and (max-width: $mobile-size) {
+      margin-bottom: 0.5rem;
+    }
     padding: 1rem 1rem;
     border-radius: 4px;
 

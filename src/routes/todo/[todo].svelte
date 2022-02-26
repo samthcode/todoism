@@ -156,6 +156,7 @@
 
   .visible {
     display: block;
+    margin-bottom: 1.5rem;
   }
 
   .delete {
