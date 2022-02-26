@@ -51,6 +51,15 @@ main {
   }
 }
 
+.btn-accent {
+  @extend .btn;
+  background-color: $accent-light;
+  &:hover {
+    background-color: lighten($accent-light, 5);
+  }
+  color: $bg-dark;
+}
+
 .completed {
   text-decoration: line-through;
   font-style: italic;

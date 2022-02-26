@@ -1,6 +1,7 @@
 <script>
   import { createEventDispatcher } from "svelte";
   import { lists } from "$lib/stores/lists";
+  import { fix_and_destroy_block } from "svelte/internal";
 
   let dispatch = createEventDispatcher();
 
@@ -19,12 +20,34 @@
   function removeList(name) {
     dispatch("removelist", name);
   }
+
+  function editList(name, newValue) {
+    dispatch("editlist", {listName: name, newValue})
+  }
+
+  let editingLists = false;
 </script>
+
+<button
+  class="btn-accent edit-lists-btn"
+  on:click={() => {
+    editingLists = !editingLists;
+  }}>{#if !editingLists}Edit Lists{:else}Done{/if}</button
+>
 
 <div class="selector">
   {#each $lists as list}
     <div class="selector-item" on:click={(e) => selectList(list.name)}>
-      <div class="list-name">{list.name}</div>
+      {#if editingLists}
+        <input
+          class="list-name"
+          value={list.name}
+          on:click|stopPropagation
+          on:change={(e) => {editList(list.name, e.target.value)}}
+        />
+      {:else}
+        <div class="list-name">{list.name}</div>
+      {/if}
       <button
         class="remove-list"
         on:click|stopPropagation={() => {
@@ -35,11 +58,15 @@
   {/each}
   <div class="selector-item">
     <input type="text" class="new-list-inp" bind:value={newListName} />
-    <button class="btn new-list-btn" on:click={newList}>New List</button>
+    <button class="btn-accent new-list-btn" on:click={newList}>New List</button>
   </div>
 </div>
 
 <style lang="scss">
+  .edit-lists-btn {
+    margin: 1.5rem;
+    margin-bottom: 0rem;
+  }
   .new-list-inp {
     flex: 1 1 0;
   }
@@ -72,11 +99,6 @@
   }
   .new-list-btn {
     margin-left: 0.5rem;
-    background-color: $accent-light;
-    &:hover {
-      background-color: lighten($accent-light, 5);
-    }
-    color: $bg-dark;
     margin-bottom: 0;
   }
   .selector {
@@ -84,13 +106,13 @@
     overflow-x: clip;
 
     margin-left: 1.5rem;
-    margin-top: 1.5rem;
 
     margin-bottom: 0.5rem;
 
     @media only screen and (max-width: $mobile-size) {
       width: auto;
       margin: 1.5rem;
+      marin-top: 0;
     }
   }
   .selector-item {

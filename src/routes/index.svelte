@@ -22,11 +22,9 @@
     console.log(`currentList = ${$currentList}`);
   }
 
-  function addNewTodo({detail: {todo, listName}}) {
+  function addNewTodo({ detail: { todo, listName } }) {
     if (!$lists.find(({ name }) => name === listName)) {
-      console.log(
-        `addNewTodo(): Couldn't find list with name: "${listName}"`
-      );
+      console.log(`addNewTodo(): Couldn't find list with name: "${listName}"`);
       return;
     }
     if (todo.title === undefined) return;
@@ -97,6 +95,20 @@
       setSelectedListByListName($lists[0]?.name);
     }
   }
+
+  function editList({ detail: {listName, newValue} }) {
+    let ind = $lists.findIndex(({ name }) => name === listName);
+    if (ind === -1) {
+      console.log(`editList(): Couldn't find list with name: "${listName}"`);
+      return
+    }
+
+    $lists[ind].name = newValue;
+
+    if (listName === $currentList) {
+      $currentList = newValue;
+    }
+  }
 </script>
 
 <svelte:head>
@@ -109,6 +121,7 @@
       on:removelist={removeList}
       on:newlist={addNewList}
       on:select={selectList}
+      on:editlist={editList}
     />
   </div>
   <main>
