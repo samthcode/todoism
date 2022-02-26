@@ -10,8 +10,10 @@
     for (const l of $lists) {
       todo = l.todos.find(({ id }) => id === theId);
       if (todo) {
-        dueDateAsDate = new Date(todo.dueDate);
-        dueDateFormatted = formatDueDate(dueDateAsDate);
+        if (todo.dueDate) {
+          dueDateAsDate = new Date(todo.dueDate);
+          dueDateFormatted = formatDueDate(dueDateAsDate);
+        }
         break;
       }
     }
@@ -79,7 +81,7 @@
 
   let editorVisible = false;
 
-  function submitNewTodo(e) {
+  function updateTodoFromEditor(e) {
     updateTodo(e.detail);
     editorVisible = false;
     if (browser) location.reload();
@@ -102,7 +104,7 @@
       <TodoInput
         defaults={todo}
         prompt="Edit Todo:"
-        on:submit={submitNewTodo}
+        on:submit={updateTodoFromEditor}
       />
     </div>
 
@@ -115,10 +117,14 @@
       </h2>
       <div class="small desc-label">Description:</div>
       <div class="desc" class:completed={todo.completed}>{todo.desc}</div>
-      {#if dueDateFormatted}
-        <div class="small due-date-label">Due Date:</div>
+      <div class="small due-date-label">Due Date:</div>
+      {#if todo.dueDate}
         <div class="due-date" class:completed={todo.completed}>
-          Due {dueDateFormatted}
+          {dueDateFormatted}
+        </div>
+      {:else}
+      <div class="due-date" class:completed={todo.completed}>
+          &lt; Not Set &gt;
         </div>
       {/if}
       <div class="small completed-label">Completed:</div>

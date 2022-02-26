@@ -13,12 +13,10 @@
   const dispatch = createEventDispatcher();
 
   function submit() {
-    if (!newTodo.dueDate) {
-      let now = new Date();
-      now.setHours(now.getHours() + 24);  
-      newTodo.dueDate = now.toString();
-    }
-    dispatch("submit", newTodo);
+    dispatch("submit", {
+      ...newTodo,
+      dueDate: newTodo.dueDate ?? null
+    });
     newTodo = {
       title: "",
       desc: "",

@@ -5,12 +5,17 @@
   export let dueDate;
   export let id;
 
-  let dueDateAsDate = new Date(dueDate);
+  let dueDateAsDate, dueDateFormatted;
+
+  $: if (dueDate) {
+    dueDateAsDate = new Date(dueDate);
+    dueDateFormatted = formatDueDate(dueDateAsDate);
+  }
 
   import { createEventDispatcher } from "svelte";
   import { browser } from "$app/env";
 
-  import {isOverdue, formatDueDate} from "$lib/utils/date.js";
+  import { isOverdue, formatDueDate } from "$lib/utils/date.js";
 
   let dispatch = createEventDispatcher();
 
@@ -19,8 +24,6 @@
   function goToPage(e) {
     goto(`/todo/${id}`);
   }
-
-  let dueDateFormatted = formatDueDate(dueDateAsDate);
 </script>
 
 <div on:click={goToPage} class="card">
@@ -38,7 +41,7 @@
     }}
   />
   <div class="desc" class:completed>{desc}</div>
-  <div class="due-date" class:completed>Due {dueDateFormatted}</div>
+  {#if dueDate}<div class="due-date" class:completed>Due {dueDateFormatted}</div>{/if}
 </div>
 
 <style lang="scss">
