@@ -5,15 +5,25 @@
 
   import { onMount } from "svelte";
 
+  import { getPriorityOf } from "$lib/utils/todo.js";
+
   onMount(() => {
     list.todos = list.todos.sort((a, b) => {
+      // Mandatory ordering by completed
       if (a.completed) return 1;
       if (b.completed) return -1;
-      if (!a.dueDate && !b.dueDate) return 0;
-      if (!a.dueDate) return 1;
-      if (!b.dueDate) return -1;
-      return new Date(a.dueDate) - new Date(b.dueDate);
+      return 0;
     });
+
+    let orderByPriority = true;
+
+    if (orderByPriority) {
+      list.todos = list.todos.sort((a, b) => {
+        return getPriorityOf(b.title) - getPriorityOf(a.title);
+      });
+    } else {
+      // TODO: Order by date
+    }
   });
 
   import { createEventDispatcher } from "svelte";

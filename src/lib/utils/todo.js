@@ -24,3 +24,7 @@ export const getPriorityAndTitleOfTodo = (title) => {
     title: matches[2],
   };
 };
+
+export const getPriorityOf = (title) => {
+  return title.match(/(\**) ?(.*)/)[1].length;
+};
