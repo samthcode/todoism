@@ -38,3 +38,9 @@
     }}
   />
 {/each}
+
+<style>
+  h2 {
+    word-wrap: break-word;
+  }
+</style>
