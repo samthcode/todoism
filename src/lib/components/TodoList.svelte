@@ -24,11 +24,18 @@
   function addNewTodo(e) {
     dispatch("addtodo", { todo: e.detail, listName: list.name });
   }
+
+  let addingTodo = false;
 </script>
 
 <h2>{list.name}</h2>
 
+<button class="btn-accent add-todo-btn" class:not-adding-todo={!addingTodo} on:click={() => {
+  addingTodo = !addingTodo;
+}}>{#if !addingTodo}Add Todo{:else}Cancel{/if}</button>
+{#if addingTodo}
 <TodoInput defaults={{}} prompt="Add Todo:" on:submit={addNewTodo} />
+{/if}
 
 {#each list.todos as todo (todo.id)}
   <TodoItem
@@ -39,8 +46,19 @@
   />
 {/each}
 
-<style>
+<style lang="scss">
   h2 {
     word-wrap: break-word;
+    margin-bottom: 1.5rem;
+  }
+
+  .add-todo-btn {
+    @media only screen and (max-width: $mobile-size) {
+      margin-bottom: 0.5rem;
+    }
+  }
+
+  .not-adding-todo {
+    margin-bottom: 1.5rem;
   }
 </style>

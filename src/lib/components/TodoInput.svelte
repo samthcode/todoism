@@ -74,6 +74,8 @@
 
   .editor-desc {
     grid-area: desc;
+
+    height: 5rem;
   }
 
   h3 {
