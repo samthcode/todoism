@@ -112,3 +112,10 @@ main {
 .completed-label {
   grid-area: completed-label;
 }
+
+input, textarea {
+  background-color: $bg-light;
+  border: 2px solid $bg-dark;
+  border-radius: 4px;
+  color: white;
+}
