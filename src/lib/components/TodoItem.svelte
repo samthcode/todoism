@@ -3,7 +3,11 @@
   import { browser } from "$app/env";
 
   import { isOverdue, formatDueDate } from "$lib/utils/date.js";
-  import { getPriorityAndTitleOfTodo } from "$lib/utils/todo.js";
+  import {
+    getPriorityAndTitleOfTodo,
+    getPriorityOf,
+    priorityToCss,
+  } from "$lib/utils/todo.js";
 
   import { goto } from "$app/navigation";
 
@@ -46,7 +50,9 @@
   {#if dueDate}<div class="due-date" class:completed>
       Due {dueDateFormatted}
     </div>{/if}
-  <span class="priority-tag">{titleAndPriority.priority}</span>
+  <div class="priority-tag" style={priorityToCss(getPriorityOf(title))}>
+    {titleAndPriority.priority}
+  </div>
 </div>
 
 <style lang="scss">

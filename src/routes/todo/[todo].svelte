@@ -5,7 +5,11 @@
   import { lists } from "$lib/stores/lists";
   import { isOverdue, formatDueDate } from "$lib/utils/date.js";
   import TodoInput from "$lib/components/TodoInput.svelte";
-  import { getPriorityAndTitleOfTodo } from "$lib/utils/todo";
+  import {
+    getPriorityAndTitleOfTodo,
+    getPriorityOf,
+    priorityToCss,
+  } from "$lib/utils/todo";
 
   let theId = $page.params.todo;
   let todo, dueDateAsDate, dueDateFormatted, title, priority;
@@ -141,7 +145,9 @@
         }}
       />
     </div>
-    <div class="priority-tag">{priority}</div>
+    <div class="priority-tag" style={priorityToCss(getPriorityOf(todo.title))}>
+      {priority}
+    </div>
   {:else}
     <h2>Error: Could not find todo with id '{theId}'</h2>
   {/if}
