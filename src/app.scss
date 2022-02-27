@@ -124,11 +124,13 @@ textarea {
 .priority-tag {
   box-sizing: border-box;
   height: 1.5rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   font-size: 14px;
   border-radius: 0.75rem;
   width: fit-content;
   padding: 0.25rem 0.5rem;
-  text-align: center;
   background-color: $accent-light;
   color: $bg-dark;
 }
