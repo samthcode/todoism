@@ -10,8 +10,8 @@
       if (a.completed) return 1;
       if (b.completed) return -1;
       if (!a.dueDate && !b.dueDate) return 0;
-      if (!a.dueDate) return -1;
-      if (!b.dueDate) return 1;
+      if (!a.dueDate) return 1;
+      if (!b.dueDate) return -1;
       return new Date(a.dueDate) - new Date(b.dueDate);
     });
   });
