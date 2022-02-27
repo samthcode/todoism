@@ -44,7 +44,6 @@
 
 <style lang="scss">
   .container {
-    margin-top: 0.5rem;
     margin-bottom: 1.5rem;
     @media only screen and (max-width: $mobile-size) {
       margin-bottom: 0.5rem;

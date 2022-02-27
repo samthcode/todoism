@@ -30,11 +30,15 @@
 
 <h2>{list.name}</h2>
 
-<button class="btn-accent add-todo-btn" class:not-adding-todo={!addingTodo} on:click={() => {
-  addingTodo = !addingTodo;
-}}>{#if !addingTodo}Add Todo{:else}Cancel{/if}</button>
+<button
+  class="btn-accent add-todo-btn"
+  on:click={() => {
+    addingTodo = !addingTodo;
+  }}
+  >{#if !addingTodo}Add Todo{:else}Cancel{/if}</button
+>
 {#if addingTodo}
-<TodoInput defaults={{}} prompt="Add Todo:" on:submit={addNewTodo} />
+  <TodoInput defaults={{}} prompt="Add Todo:" on:submit={addNewTodo} />
 {/if}
 
 {#each list.todos as todo (todo.id)}
@@ -53,12 +57,9 @@
   }
 
   .add-todo-btn {
+    margin-bottom: 1.5rem;
     @media only screen and (max-width: $mobile-size) {
       margin-bottom: 0.5rem;
     }
-  }
-
-  .not-adding-todo {
-    margin-bottom: 1.5rem;
   }
 </style>
