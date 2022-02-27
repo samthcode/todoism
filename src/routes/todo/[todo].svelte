@@ -42,7 +42,7 @@
       if (theNewOne.title)
         $lists[listIndex].todos[todoIndex].title = theNewOne.title;
 
-      if (theNewOne.desc)
+      if (theNewOne.hasOwnProperty("desc"))
         $lists[listIndex].todos[todoIndex].desc = theNewOne.desc;
 
       if (theNewOne.dueDate)
@@ -50,7 +50,7 @@
           theNewOne.dueDate
         );
 
-      if (theNewOne.completed !== undefined)
+      if (theNewOne.hasOwnProperty("completed"))
         $lists[listIndex].todos[todoIndex].completed = theNewOne.completed;
 
       $lists = $lists;
