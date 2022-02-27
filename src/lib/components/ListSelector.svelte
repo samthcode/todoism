@@ -77,6 +77,7 @@
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+    width: 100%;
   }
   .remove-list {
     text-align: center;
@@ -92,6 +93,8 @@
     padding: auto 0;
     padding-left: 0.5rem;
     padding-right: 0.5rem;
+
+    margin-left: 0.5rem;
 
     background-color: $warning-colour;
     border: none;
