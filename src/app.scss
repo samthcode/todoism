@@ -113,7 +113,8 @@ main {
   grid-area: completed-label;
 }
 
-input, textarea {
+input,
+textarea {
   background-color: $bg-light;
   border: 2px solid $bg-dark;
   border-radius: 4px;
@@ -124,9 +125,9 @@ input, textarea {
   box-sizing: border-box;
   height: 1.5rem;
   font-size: 14px;
-  border-radius: .75rem;
-  width:fit-content;
-  padding: .25rem .5rem;
+  border-radius: 0.75rem;
+  width: fit-content;
+  padding: 0.25rem 0.5rem;
   text-align: center;
   background-color: $accent-light;
   color: $bg-dark;
