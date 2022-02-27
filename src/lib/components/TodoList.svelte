@@ -7,24 +7,29 @@
 
   import { getPriorityOf } from "$lib/utils/todo.js";
 
-  onMount(() => {
+  function sortList(todos) {
+    // Ordering by priority
     list.todos = list.todos.sort((a, b) => {
-      // Mandatory ordering by completed
+      return getPriorityOf(b.title) - getPriorityOf(a.title);
+    });
+
+    // Ordering by date; takes precedence over priority
+    list.todos = list.todos.sort((a, b) => {
+      if (!a.dueDate && !b.dueDate) return 0;
+      if (!a.dueDate) return 1;
+      if (!b.dueDate) return -1;
+      return new Date(a.dueDate) - new Date(b.dueDate);
+    });
+
+    // Ordering by completed; takes precedence over other attributes
+    todos = todos.sort((a, b) => {
       if (a.completed) return 1;
       if (b.completed) return -1;
       return 0;
     });
+  }
 
-    let orderByPriority = true;
-
-    if (orderByPriority) {
-      list.todos = list.todos.sort((a, b) => {
-        return getPriorityOf(b.title) - getPriorityOf(a.title);
-      });
-    } else {
-      // TODO: Order by date
-    }
-  });
+  $: sortList(list.todos);
 
   import { createEventDispatcher } from "svelte";
   import TodoInput from "./TodoInput.svelte";
