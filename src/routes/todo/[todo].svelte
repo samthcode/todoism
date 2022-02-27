@@ -4,8 +4,12 @@
   import { browser } from "$app/env";
   import { lists } from "$lib/stores/lists";
   import { isOverdue, formatDueDate } from "$lib/utils/date.js";
+  import TodoInput from "$lib/components/TodoInput.svelte";
+  import { getPriorityAndTitleOfTodo } from "$lib/utils/todo";
+
   let theId = $page.params.todo;
-  let todo, dueDateAsDate, dueDateFormatted;
+  let todo, dueDateAsDate, dueDateFormatted, title, priority;
+
   onMount(() => {
     for (const l of $lists) {
       todo = l.todos.find(({ id }) => id === theId);
@@ -14,13 +18,13 @@
           dueDateAsDate = new Date(todo.dueDate);
           dueDateFormatted = formatDueDate(dueDateAsDate);
         }
+        let titleAndPriority = getPriorityAndTitleOfTodo(todo.title);
+        title = titleAndPriority.title;
+        priority = titleAndPriority.priority;
         break;
       }
     }
   });
-
-  import { goto } from "$app/navigation";
-  import TodoInput from "$lib/components/TodoInput.svelte";
 
   function goBack() {
     if (browser) history.back();
@@ -111,7 +115,7 @@
     <div class="todo-container">
       <div class="small title-label">Title:</div>
       <h2 class="title" class:completed={todo.completed}>
-        {todo.title}{#if isOverdue(dueDateAsDate) && !todo.completed}<span
+        {title}{#if isOverdue(dueDateAsDate) && !todo.completed}<span
             class="text-warn">&nbsp;(Overdue)</span
           >{/if}
       </h2>
@@ -137,12 +141,17 @@
         }}
       />
     </div>
+    <div class="priority-tag">{priority}</div>
   {:else}
     <h2>Error: Could not find todo with id '{theId}'</h2>
   {/if}
 </main>
 
 <style lang="scss">
+  .priority-tag {
+    margin-top: 2rem;
+  }
+
   .desc {
     white-space: pre-wrap;
   }

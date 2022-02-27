@@ -1,5 +1,14 @@
 <script>
+  import { createEventDispatcher } from "svelte";
+  import { browser } from "$app/env";
+
+  import { isOverdue, formatDueDate } from "$lib/utils/date.js";
+  import { getPriorityAndTitleOfTodo } from "$lib/utils/todo.js";
+
+  import { goto } from "$app/navigation";
+
   export let title;
+  let titleAndPriority = getPriorityAndTitleOfTodo(title);
   export let desc;
   export let completed;
   export let dueDate;
@@ -12,14 +21,7 @@
     dueDateFormatted = formatDueDate(dueDateAsDate);
   }
 
-  import { createEventDispatcher } from "svelte";
-  import { browser } from "$app/env";
-
-  import { isOverdue, formatDueDate } from "$lib/utils/date.js";
-
   let dispatch = createEventDispatcher();
-
-  import { goto } from "$app/navigation";
 
   function goToPage(e) {
     goto(`/todo/${id}`);
@@ -28,8 +30,8 @@
 
 <div on:click={goToPage} class="card">
   <h3 class:completed>
-    {title}{#if isOverdue(dueDateAsDate) && !completed}<span class="text-warn"
-        >&nbsp;(Overdue)</span
+    {titleAndPriority.title}{#if isOverdue(dueDateAsDate) && !completed}<span
+        class="text-warn">&nbsp;(Overdue)</span
       >{/if}
   </h3>
   <input
@@ -41,7 +43,10 @@
     }}
   />
   <div class="desc" class:completed>{desc}</div>
-  {#if dueDate}<div class="due-date" class:completed>Due {dueDateFormatted}</div>{/if}
+  {#if dueDate}<div class="due-date" class:completed>
+      Due {dueDateFormatted}
+    </div>{/if}
+  <span class="priority-tag">{titleAndPriority.priority}</span>
 </div>
 
 <style lang="scss">
@@ -57,11 +62,12 @@
 
     display: grid;
     grid-template-columns: auto min-content;
-    grid-template-rows: auto auto;
+    grid-template-rows: auto auto auto auto;
     grid-template-areas:
       "title complete"
       "desc ."
-      "due-date .";
+      "due-date ."
+      "priority .";
     grid-column-gap: 0.5rem;
     grid-row-gap: 0.5rem;
 
@@ -86,6 +92,10 @@
 
       width: 2em;
       height: 2em;
+    }
+
+    .priority-tag {
+      grid-area: priority;
     }
 
     &:hover {

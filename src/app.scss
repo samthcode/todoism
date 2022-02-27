@@ -119,3 +119,15 @@ input, textarea {
   border-radius: 4px;
   color: white;
 }
+
+.priority-tag {
+  box-sizing: border-box;
+  height: 1.5rem;
+  font-size: 14px;
+  border-radius: .75rem;
+  width:fit-content;
+  padding: .25rem .5rem;
+  text-align: center;
+  background-color: $accent-light;
+  color: $bg-dark;
+}
