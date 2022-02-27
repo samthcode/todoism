@@ -106,6 +106,7 @@
   .new-list-btn {
     margin-left: 0.5rem;
     margin-bottom: 0;
+    flex-shrink: 0;
   }
   .selector {
     width: 17rem;
