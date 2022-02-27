@@ -7,7 +7,7 @@
 
   import { getPriorityOf } from "$lib/utils/todo.js";
 
-  function sortList(todos) {
+  onMount(() => {
     // Ordering by priority
     list.todos = list.todos.sort((a, b) => {
       return getPriorityOf(b.title) - getPriorityOf(a.title);
@@ -22,14 +22,12 @@
     });
 
     // Ordering by completed; takes precedence over other attributes
-    todos = todos.sort((a, b) => {
+    list.todos = list.todos.sort((a, b) => {
       if (a.completed) return 1;
       if (b.completed) return -1;
       return 0;
     });
-  }
-
-  $: sortList(list.todos);
+  });
 
   import { createEventDispatcher } from "svelte";
   import TodoInput from "./TodoInput.svelte";
