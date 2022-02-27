@@ -30,7 +30,7 @@
     if (todo.title === undefined) return;
     $lists
       .find(({ name }) => name === listName)
-      .todos.push({
+      .todos.unshift({
         ...todo,
         desc: todo.desc ?? "",
         id: uuidGeneratorV4(),
