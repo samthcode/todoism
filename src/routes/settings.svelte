@@ -20,15 +20,15 @@
     <div class="explanation">
       This contols how tasks are viewed in the list view. Options:
       <ul>
-        <li>Default - title, description, and tags will be showed</li>
+        <li>Default - title, checkbox, description, due date, and tags will be showed</li>
         <li>
           Expanded - same as default but the description will be rendered with
           newlines (as you wrote it)
         </li>
-        <li>Compact - only the title will be shown</li>
+        <li>Compact - only the title and checkbox will be shown</li>
       </ul>
     </div>
-    <select on:change={updateTaskView}>
+    <select value={$settings.taskView} on:change={updateTaskView}>
       <option value="default">Default</option>
       <option value="expanded">Expanded</option>
       <option value="compact">Compact</option>
@@ -42,7 +42,12 @@
       Lists" options (make sure to turn it back on if you want to add or edit
       lists). This is a convenience option mainly for mobile users.
     </div>
-    <input class="checkbox" type="checkbox" on:change={updateListOptions} />
+    <input
+      checked={$settings.showListOptions}
+      class="checkbox"
+      type="checkbox"
+      on:change={updateListOptions}
+    />
   </div>
 </main>
 

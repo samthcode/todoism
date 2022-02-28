@@ -49,13 +49,15 @@
   {/if}
 </div>
 
-<button
-  class="btn-accent edit-lists-btn"
-  on:click={() => {
-    editingLists = !editingLists;
-  }}
-  >{#if !editingLists}Edit Lists{:else}Done{/if}</button
->
+{#if $settings.showListOptions}
+  <button
+    class="btn-accent edit-lists-btn"
+    on:click={() => {
+      editingLists = !editingLists;
+    }}
+    >{#if !editingLists}Edit Lists{:else}Done{/if}</button
+  >
+{/if}
 
 <style lang="scss">
   .edit-lists-btn {

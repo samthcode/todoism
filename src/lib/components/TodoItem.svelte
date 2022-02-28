@@ -4,6 +4,7 @@
   import { isOverdue, formatDueDate } from "$lib/utils/date";
   import { getTitle } from "$lib/utils/todo";
   import TagList from "./TagList.svelte";
+  import { settings } from "$lib/stores/settings";
 
   export let title;
   export let desc;
@@ -25,10 +26,15 @@
   }
 </script>
 
-<div on:click={goToPage} class="card">
+<div
+  on:click={goToPage}
+  class="card"
+  class:uncompact-card={$settings.taskView !== "compact"}
+  class:compact-card={$settings.taskView === "compact"}
+>
   <h3 class:completed>
-    {getTitle(title)}{#if isOverdue(dueDateAsDate) && !completed}<span class="text-warn"
-        >&nbsp;(Overdue)</span
+    {getTitle(title)}{#if isOverdue(dueDateAsDate) && !completed}<span
+        class="text-warn">&nbsp;(Overdue)</span
       >{/if}
   </h3>
   <input
@@ -39,17 +45,42 @@
       dispatch("completed", id);
     }}
   />
-  <div class="desc" class:completed>{desc}</div>
-  {#if dueDate}<div class="due-date" class:completed>
-      Due {dueDateFormatted}
-    </div>{/if}
-  <div class="tag-list">
-    <TagList title={title} />
-  </div>
+  {#if $settings.taskView !== "compact"}
+    <div
+      class:expanded-desc={$settings.taskView === "expanded"}
+      class:unexpanded-desc={$settings.taskView !== "expanded"}
+      class:completed
+    >
+      {desc}
+    </div>
+    {#if dueDate}<div class="due-date" class:completed>
+        Due {dueDateFormatted}
+      </div>{/if}
+    <div class="tag-list">
+      <TagList {title} />
+    </div>
+  {/if}
 </div>
 
 <style lang="scss">
+  .compact-card {
+    grid-template-rows: min-content;
+    grid-template-areas: "title complete";
+  }
+  .uncompact-card {
+    grid-template-rows: min-content min-content min-content min-content;
+    grid-template-areas:
+      "title complete"
+      "desc ."
+      "due-date ."
+      "priority .";
+  }
   .card {
+    h3 {
+      grid-area: title;
+      margin: auto 0;
+    }
+
     max-width: 100%;
     background-color: $bg-light;
     margin-bottom: 1.5rem;
@@ -61,22 +92,15 @@
 
     display: grid;
     grid-template-columns: auto min-content;
-    grid-template-rows: auto auto auto auto;
-    grid-template-areas:
-      "title complete"
-      "desc ."
-      "due-date ."
-      "priority .";
     grid-column-gap: 0.5rem;
     grid-row-gap: 0.5rem;
 
-    h3 {
-      grid-area: title;
+
+    .expanded-desc {
+      white-space: pre-line;
     }
 
-    .desc {
-      grid-area: desc;
-
+    .unexpanded-desc {
       text-overflow: ellipsis; /* IE, Safari (WebKit) */
       overflow: hidden; /* don't show excess chars */
       white-space: nowrap; /* force single line */
