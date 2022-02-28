@@ -1,10 +1,15 @@
 const getParts = (title) => {
-  let matches = String(title).match(/(\**) ?(.*)/);
+  let matches = String(title).match(/(\**)\s?(\(maybe\))?\s?(.*)/);
 
   return {
     priority: matches[1].length,
-    title: matches[2],
+    maybe: matches[2] !== undefined,
+    title: matches[3],
   };
+};
+
+export const hasMaybe = (title) => {
+  return getParts(title).maybe;
 };
 
 export const getPriority = (title) => {

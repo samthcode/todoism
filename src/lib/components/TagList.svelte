@@ -3,6 +3,7 @@
     priorityToCss,
     getPriority,
     priorityToString,
+    hasMaybe,
   } from "$lib/utils/todo";
 
   export let title;
@@ -13,12 +14,15 @@
   <div class="tag" style={priorityToCss(priority)}>
     {priorityToString(priority)}
   </div>
+  {#if hasMaybe(title)}
+  <div class="tag maybe-tag">Maybe</div>
+  {/if}
 </div>
 
 <style lang="scss">
   .tag-container {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     row-gap: 1rem;
     column-gap: 1rem;
   }
