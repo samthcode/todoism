@@ -120,3 +120,29 @@ textarea {
   border-radius: 4px;
   color: white;
 }
+
+.list-selector-item {
+  display: flex;
+  justify-content: space-between;
+
+  border-radius: 4px;
+  background-color: $bg-light;
+  color: $text;
+  padding: 0.75em 0.5em;
+  &:not(:first-child) {
+    margin-top: 1rem;
+    @media only screen and (max-width: $mobile-size) {
+      margin-top: 0.5rem;
+    }
+  }
+  @media only screen and (max-width: $mobile-size) {
+    margin: 0;
+    padding: 0.5em 0.5em;
+  }
+
+  font-size: 1.25rem;
+
+  &:hover {
+    background-color: lighten($bg-light, 5);
+  }
+}
