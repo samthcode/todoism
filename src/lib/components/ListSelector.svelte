@@ -1,7 +1,6 @@
 <script>
   import { createEventDispatcher } from "svelte";
   import { lists } from "$lib/stores/lists";
-  import { fix_and_destroy_block } from "svelte/internal";
 
   let dispatch = createEventDispatcher();
 
