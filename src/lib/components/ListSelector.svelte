@@ -1,6 +1,7 @@
 <script>
   import { createEventDispatcher } from "svelte";
   import { lists } from "$lib/stores/lists";
+import { currentList } from "$lib/stores/currentList";
 
   let dispatch = createEventDispatcher();
 
@@ -29,7 +30,7 @@
 
 <div class="selector">
   {#each $lists as list}
-    <div class="selector-item" on:click={(e) => selectList(list.name)}>
+    <div class="selector-item" class:selector-item-selected={$currentList === list.name} on:click={(e) => selectList(list.name)}>
       {#if editingLists}
         <input
           class="list-name"
@@ -142,6 +143,9 @@
     font-size: 1.25rem;
   }
   .selector-item:hover {
+    background-color: lighten($bg-light, 5);
+  }
+  .selector-item-selected {
     background-color: lighten($bg-light, 5);
   }
 </style>
