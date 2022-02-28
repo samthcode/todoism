@@ -9,6 +9,7 @@
   <div>
     <a href="/">Home</a>
     <a href="/about/">About</a>
+    <a href="/settings/">Settings</a>
   </div>
 </nav>
 

@@ -114,11 +114,16 @@ main {
 }
 
 input,
-textarea {
+textarea,
+select {
   background-color: $bg-light;
   border: 2px solid $bg-dark;
   border-radius: 4px;
   color: white;
+}
+
+select {
+  padding: 0.25rem;
 }
 
 .list-selector-item {
