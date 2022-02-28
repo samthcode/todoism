@@ -2,6 +2,7 @@
   import { createEventDispatcher } from "svelte";
   import { lists } from "$lib/stores/lists";
   import ListSelectorItem from "./ListSelectorItem.svelte";
+  import { settings } from "$lib/stores/settings";
 
   let dispatch = createEventDispatcher();
 
@@ -38,10 +39,14 @@
       {list}
     />
   {/each}
-  <div class="list-selector-item">
-    <input type="text" class="new-list-inp" bind:value={newListName} />
-    <button class="btn-accent new-list-btn" on:click={newList}>New List</button>
-  </div>
+  {#if $settings.showListOptions}
+    <div class="list-selector-item">
+      <input type="text" class="new-list-inp" bind:value={newListName} />
+      <button class="btn-accent new-list-btn" on:click={newList}
+        >New List</button
+      >
+    </div>
+  {/if}
 </div>
 
 <button

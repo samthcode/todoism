@@ -4,7 +4,7 @@ import { writable } from "svelte/store";
 
 const defaultValue = {
   taskView: "default",
-  showListOptions: false,
+  showListOptions: true,
 };
 
 const initialValue =
