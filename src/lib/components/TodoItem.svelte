@@ -1,18 +1,11 @@
 <script>
   import { createEventDispatcher } from "svelte";
-  import { browser } from "$app/env";
-
-  import { isOverdue, formatDueDate } from "$lib/utils/date.js";
-  import {
-    getPriorityAndTitleOfTodo,
-    getPriorityOf,
-    priorityToCss,
-  } from "$lib/utils/todo.js";
-
   import { goto } from "$app/navigation";
+  import { isOverdue, formatDueDate } from "$lib/utils/date";
+  import { getTitle } from "$lib/utils/todo";
+  import TagList from "./TagList.svelte";
 
   export let title;
-  let titleAndPriority = getPriorityAndTitleOfTodo(title);
   export let desc;
   export let completed;
   export let dueDate;
@@ -34,8 +27,8 @@
 
 <div on:click={goToPage} class="card">
   <h3 class:completed>
-    {titleAndPriority.title}{#if isOverdue(dueDateAsDate) && !completed}<span
-        class="text-warn">&nbsp;(Overdue)</span
+    {getTitle(title)}{#if isOverdue(dueDateAsDate) && !completed}<span class="text-warn"
+        >&nbsp;(Overdue)</span
       >{/if}
   </h3>
   <input
@@ -50,8 +43,8 @@
   {#if dueDate}<div class="due-date" class:completed>
       Due {dueDateFormatted}
     </div>{/if}
-  <div class="priority-tag" style={priorityToCss(getPriorityOf(title))}>
-    {titleAndPriority.priority}
+  <div class="tag-list">
+    <TagList title={title} />
   </div>
 </div>
 
@@ -100,7 +93,7 @@
       height: 2em;
     }
 
-    .priority-tag {
+    .tag-list {
       grid-area: priority;
     }
 

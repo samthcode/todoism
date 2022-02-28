@@ -5,14 +5,11 @@
   import { lists } from "$lib/stores/lists";
   import { isOverdue, formatDueDate } from "$lib/utils/date.js";
   import TodoInput from "$lib/components/TodoInput.svelte";
-  import {
-    getPriorityAndTitleOfTodo,
-    getPriorityOf,
-    priorityToCss,
-  } from "$lib/utils/todo";
+  import { getTitle } from "$lib/utils/todo";
+  import TagList from "$lib/components/TagList.svelte";
 
   let theId = $page.params.todo;
-  let todo, dueDateAsDate, dueDateFormatted, title, priority;
+  let todo, dueDateAsDate, dueDateFormatted;
 
   onMount(() => {
     for (const l of $lists) {
@@ -22,9 +19,6 @@
           dueDateAsDate = new Date(todo.dueDate);
           dueDateFormatted = formatDueDate(dueDateAsDate);
         }
-        let titleAndPriority = getPriorityAndTitleOfTodo(todo.title);
-        title = titleAndPriority.title;
-        priority = titleAndPriority.priority;
         break;
       }
     }
@@ -119,7 +113,9 @@
     <div class="todo-container">
       <div class="small title-label">Title:</div>
       <h2 class="title" class:completed={todo.completed}>
-        {title}{#if isOverdue(dueDateAsDate) && !todo.completed}<span
+        {getTitle(
+          todo.title
+        )}{#if isOverdue(dueDateAsDate) && !todo.completed}<span
             class="text-warn">&nbsp;(Overdue)</span
           >{/if}
       </h2>
@@ -145,8 +141,8 @@
         }}
       />
     </div>
-    <div class="priority-tag" style={priorityToCss(getPriorityOf(todo.title))}>
-      {priority}
+    <div class="tag-list">
+      <TagList title={todo.title} />
     </div>
   {:else}
     <h2>Error: Could not find todo with id '{theId}'</h2>
@@ -154,7 +150,7 @@
 </main>
 
 <style lang="scss">
-  .priority-tag {
+  .tag-list {
     margin-top: 2rem;
   }
 

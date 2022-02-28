@@ -5,12 +5,12 @@
 
   import { onMount } from "svelte";
 
-  import { getPriorityOf } from "$lib/utils/todo.js";
+  import { getPriority } from "$lib/utils/todo.js";
 
   onMount(() => {
     // Ordering by priority
     list.todos = list.todos.sort((a, b) => {
-      return getPriorityOf(b.title) - getPriorityOf(a.title);
+      return getPriority(b.title) - getPriority(a.title);
     });
 
     // Ordering by date; takes precedence over priority
