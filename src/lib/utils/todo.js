@@ -1,10 +1,18 @@
-const getParts = (title) => {
-  let matches = String(title).match(/(\**)\s?(\(maybe\))?\s?(.*)/);
+const getParts = (t) => {
+  let matches = String(t).match(/(\**)\s?(.*)/);
+
+  let title = matches[2];
+
+  let maybe = false;
+  title = title.replace("(maybe)", () => {
+    maybe = true;
+    return "";
+  });
 
   return {
     priority: matches[1].length,
-    maybe: matches[2] !== undefined,
-    title: matches[3],
+    maybe,
+    title,
   };
 };
 
