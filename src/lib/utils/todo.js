@@ -4,7 +4,7 @@ const getParts = (t) => {
   let title = matches[2];
 
   let maybe = false;
-  title = title.replace("(maybe)", () => {
+  title = title.replace(/\s?\(maybe\)/, () => {
     maybe = true;
     return "";
   });
