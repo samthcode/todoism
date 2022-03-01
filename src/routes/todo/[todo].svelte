@@ -154,14 +154,58 @@
     margin-top: 2rem;
   }
 
+  .todo-container {
+    margin-top: 0.75rem;
+    display: grid;
+    column-gap: 1rem;
+    row-gap: 2rem;
+    grid-template-rows: min-content min-content min-content min-content;
+    grid-template-columns: min-content auto;
+    grid-template-areas: "title-label title" "desc-label desc" "due-date-label due-date" "completed-label completed";
+  }
+
+  .small {
+    font-size: 14px;
+    margin-bottom: 0.2em;
+  }
+
+  .title {
+    grid-area: title;
+  }
+
+  .title-label {
+    grid-area: title-label;
+  }
+
   .desc {
+    grid-area: desc;
     white-space: pre-wrap;
-    word-break: break-word;
+  }
+
+  .desc-label {
+    grid-area: desc-label;
+  }
+
+  .due-date {
+    grid-area: due-date;
+  }
+
+  .due-date-label {
+    grid-area: due-date-label;
+  }
+
+  .completed-bool {
+    grid-area: completed;
+  }
+
+  .completed-label {
+    grid-area: completed-label;
   }
 
   .todo-inp-cont {
     display: none;
   }
+
   .completed-checkbox {
     width: 1rem;
   }

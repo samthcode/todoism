@@ -50,7 +50,7 @@
       class:expanded-desc={$settings.taskView === "expanded"}
       class:unexpanded-desc={$settings.taskView !== "expanded"}
       class:completed
-      class="description"
+      class="desc"
     >
       {desc}
     </div>
@@ -64,9 +64,6 @@
 </div>
 
 <style lang="scss">
-  .description {
-      word-break: break-word;
-  }
   .compact-card {
     grid-template-rows: min-content;
     grid-template-areas: "title complete";
