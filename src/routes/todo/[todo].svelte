@@ -156,6 +156,7 @@
 
   .desc {
     white-space: pre-wrap;
+    word-break: break-word;
   }
 
   .todo-inp-cont {
