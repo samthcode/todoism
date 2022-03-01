@@ -29,7 +29,7 @@
   let editingLists = false;
 </script>
 
-<div class="selector">
+<div class="selector" class:selector-no-list-options={!$settings.showListOptions}>
   {#each $lists as list}
     <ListSelectorItem
       on:edit={editList}
@@ -85,5 +85,8 @@
       margin-right: 1.5rem;
       margin-bottom: 0.5rem;
     }
+  }
+  .selector-no-list-options {
+    margin-bottom: 1.5rem;
   }
 </style>
