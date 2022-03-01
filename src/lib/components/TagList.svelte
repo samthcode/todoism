@@ -23,6 +23,7 @@
   .tag-container {
     display: flex;
     flex-direction: row;
+    flex-wrap: wrap;
     row-gap: 1rem;
     column-gap: 1rem;
   }
