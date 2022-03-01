@@ -44,7 +44,7 @@ export const priorityToString = (priority) => {
       str = "High";
       break;
     default:
-      str = "Very ".repeat(priority - 3) + "High";
+      str = "Very ".repeat(Math.min(priority - 3, 3)) + "High";
   }
   return str + " Priority";
 };
