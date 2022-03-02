@@ -2,8 +2,10 @@
   import {
     priorityToCss,
     getPriority,
+    getTags,
     priorityToString,
     hasMaybe,
+    colourToTagCss,
   } from "$lib/utils/todo";
 
   export let title;
@@ -15,8 +17,13 @@
     {priorityToString(priority)}
   </div>
   {#if hasMaybe(title)}
-  <div class="tag maybe-tag">Maybe</div>
+    <div class="tag maybe-tag">Maybe</div>
   {/if}
+  {#each getTags(title) as tag}
+    <div class="tag" style={colourToTagCss(tag.colour)}>
+      {tag.name}
+    </div>
+  {/each}
 </div>
 
 <style lang="scss">
@@ -27,6 +34,7 @@
     row-gap: 1rem;
     column-gap: 1rem;
   }
+
   .tag {
     display: flex;
     justify-content: center;

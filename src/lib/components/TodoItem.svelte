@@ -32,7 +32,7 @@
   class:uncompact-card={$settings.taskView !== "compact"}
   class:compact-card={$settings.taskView === "compact"}
 >
-  <h3 class:completed>
+  <h3 class="title" class:completed>
     {getTitle(title)}{#if isOverdue(dueDateAsDate) && !completed}<span
         class="text-warn">&nbsp;(Overdue)</span
       >{/if}
@@ -95,7 +95,6 @@
     grid-template-columns: auto min-content;
     grid-column-gap: 0.5rem;
     grid-row-gap: 0.5rem;
-
 
     .expanded-desc {
       white-space: pre-line;

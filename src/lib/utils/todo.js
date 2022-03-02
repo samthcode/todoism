@@ -9,10 +9,22 @@ const getParts = (t) => {
     return "";
   });
 
+  let tags = [];
+  title = title.replace(
+    /\s?\[\[(.{0,35}?)(?:\:([a-zA-Z]+))?\]\]/g,
+    (_, name, colour) => {
+      if (name !== "") {
+        tags.push({ name, colour });
+      }
+      return "";
+    }
+  );
+
   return {
     priority: matches[1].length,
     maybe,
     title,
+    tags,
   };
 };
 
@@ -26,6 +38,21 @@ export const getPriority = (title) => {
 
 export const getTitle = (title) => {
   return getParts(title).title;
+};
+
+export const getTags = (title) => {
+  return getParts(title).tags;
+};
+
+export const colourToTagCss = (colour) => {
+  switch (colour) {
+    case "red":
+      return "background-color: rgba(204, 50, 50, 0.5);border: 1px solid rgb(204, 50, 50)";
+    case "blue":
+      return "background-color: rgba(102, 252, 241, 0.5);border: 1px solid rgb(102, 252, 241)";
+    default:
+      return "background-color: rgba(211, 211, 211, 0.5);border: 1px solid rgb(211, 211, 211)";
+  }
 };
 
 export const priorityToString = (priority) => {
