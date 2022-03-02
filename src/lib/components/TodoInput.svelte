@@ -31,7 +31,7 @@
     <div class="small title-label">Title:</div>
     <input class="title" type="text" bind:value={newTodo.title} />
     <div class="small desc-label">Description:</div>
-    <textarea class="editor-desc" bind:value={newTodo.desc} />
+    <textarea class="desc" bind:value={newTodo.desc} />
     <div class="small due-date-label">Due Date:</div>
     <input
       class="due-date"
@@ -43,6 +43,42 @@
 </div>
 
 <style lang="scss">
+  .todo-container {
+    margin-top: 0.75rem;
+    display: grid;
+    column-gap: 1rem;
+    row-gap: 2rem;
+    grid-template-rows: min-content min-content min-content min-content;
+    grid-template-columns: min-content auto;
+    grid-template-areas: "title-label title" "desc-label desc" "due-date-label due-date";
+  }
+
+  .title-label {
+    grid-area: title-label;
+  }
+
+  .title {
+    grid-area: title;
+  }
+
+  .desc-label {
+    grid-area: desc-label;
+  }
+
+  .desc {
+    grid-area: desc;
+
+    height: 5rem;
+  }
+
+  .due-date-label {
+    grid-area: due-date-label;
+  }
+
+  .due-date {
+    grid-area: due-date;
+  }
+
   .container {
     margin-bottom: 1.5rem;
     @media only screen and (max-width: $mobile-size) {
@@ -58,6 +94,11 @@
     }
   }
 
+  .small {
+    font-size: 14px;
+    margin-bottom: 0.2em;
+  }
+
   .submit-new-todo {
     background-color: $accent-light;
     &:hover {
@@ -65,16 +106,6 @@
     }
     color: $bg-dark;
     margin-bottom: 0;
-  }
-
-  .editor-desc {
-    grid-area: desc;
-  }
-
-  .editor-desc {
-    grid-area: desc;
-
-    height: 5rem;
   }
 
   h3 {
