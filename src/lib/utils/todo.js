@@ -88,3 +88,27 @@ export const priorityToCss = (priority) => {
       return "background-color: rgba(204, 50, 50, 0.5);border: 1px solid rgb(204, 50, 50)";
   }
 };
+
+const entityMap = {
+  "&": "&amp;",
+  "<": "&lt;",
+  ">": "&gt;",
+  '"': "&quot;",
+  "'": "&#x27;",
+};
+
+export const sanitiseInput = (input) => {
+  return input.replace(/[&<>"']/g, (m) => {
+    return entityMap[m];
+  });
+};
+
+const urlRegex =
+  /(\b(https?|ftp|file):\/\/[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|])/gi;
+
+export const renderSimpleMarkdown = (text) => {
+  return sanitiseInput(text)
+    .replace(urlRegex, '<a target="_blank" href="$&">$&</a>')
+    .replace(/\*\*(.*?)\*\*/g, "<b>$1</b>")
+    .replace(/\*(.*?)\*/g, "<i>$1</i>");
+};

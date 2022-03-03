@@ -5,7 +5,11 @@
   import { lists } from "$lib/stores/lists";
   import { isOverdue, formatDueDate } from "$lib/utils/date.js";
   import TodoInput from "$lib/components/TodoInput.svelte";
-  import { getTitle } from "$lib/utils/todo";
+  import {
+    getTitle,
+    renderSimpleMarkdown,
+    sanitiseInput,
+  } from "$lib/utils/todo";
   import TagList from "$lib/components/TagList.svelte";
 
   let theId = $page.params.todo;
@@ -120,7 +124,9 @@
           >{/if}
       </h2>
       <div class="small desc-label">Description:</div>
-      <div class="desc" class:completed={todo.completed}>{todo.desc}</div>
+      <div class="desc" class:completed={todo.completed}>
+        {@html renderSimpleMarkdown(todo.desc)}
+      </div>
       <div class="small due-date-label">Due Date:</div>
       {#if todo.dueDate}
         <div class="due-date" class:completed={todo.completed}>

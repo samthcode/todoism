@@ -2,7 +2,7 @@
   import { createEventDispatcher } from "svelte";
   import { goto } from "$app/navigation";
   import { isOverdue, formatDueDate } from "$lib/utils/date";
-  import { getTitle } from "$lib/utils/todo";
+  import { getTitle, renderSimpleMarkdown } from "$lib/utils/todo";
   import TagList from "./TagList.svelte";
   import { settings } from "$lib/stores/settings";
 
@@ -52,7 +52,7 @@
       class:completed
       class="desc"
     >
-      {desc}
+      {@html renderSimpleMarkdown(desc)}
     </div>
     {#if dueDate}<div class="due-date" class:completed>
         Due {dueDateFormatted}
