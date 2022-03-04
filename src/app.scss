@@ -111,3 +111,10 @@ select {
 .title {
   word-break: break-word;
 }
+
+a {
+  color: $accent-light;
+  &:hover {
+    color: $accent-dark;
+  }
+}
