@@ -1,6 +1,6 @@
 <script>
   import { currentList } from "$lib/stores/currentList";
-  import { createEventDispatcher } from "svelte";
+  import { createEventDispatcher, getAllContexts } from "svelte";
 
   export let list;
   export let editingLists;
@@ -35,6 +35,10 @@
   {:else}
     <div class="list-name">{list.name}</div>
   {/if}
+  <span class="number-completed"
+    >{list.todos.filter(({ completed }) => completed).length}/{list.todos
+      .length}</span
+  >
   <button class="remove-list" on:click|stopPropagation={removeList}>X</button>
 </div>
 
@@ -61,8 +65,26 @@
     color: white;
   }
 
-  .list-selector-item:hover .remove-list {
-    display: inline;
+  .number-completed {
+    flex-shrink: 0;
+    flex-grow: 0;
+    display: none;
+    @media (hover: none) {
+      display: inline;
+    }
+
+    padding-left: 0.5rem;
+
+    margin-left: 0.5rem;
+  }
+
+  .list-selector-item:hover {
+    .remove-list {
+      display: inline;
+    }
+    .number-completed {
+      display: inline;
+    }
   }
 
   .list-selector-item-selected {
