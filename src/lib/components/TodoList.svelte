@@ -3,20 +3,22 @@
 
   export let list;
 
-  let filteredTodos = list.todos;
+  let filteredAndSortedTodos = list.todos;
 
   import { onMount } from "svelte";
 
   import { getPriority } from "$lib/utils/todo.js";
 
-  onMount(() => {
+  onMount(sort);
+
+  function sort() {
     // Ordering by priority
-    list.todos = list.todos.sort((a, b) => {
+    filteredAndSortedTodos = filteredAndSortedTodos.sort((a, b) => {
       return getPriority(b.title) - getPriority(a.title);
     });
 
     // Ordering by date; takes precedence over priority
-    list.todos = list.todos.sort((a, b) => {
+    filteredAndSortedTodos = filteredAndSortedTodos.sort((a, b) => {
       if (!a.dueDate && !b.dueDate) return 0;
       if (!a.dueDate) return 1;
       if (!b.dueDate) return -1;
@@ -24,12 +26,17 @@
     });
 
     // Ordering by completed; takes precedence over other attributes
-    list.todos = list.todos.sort((a, b) => {
+    filteredAndSortedTodos = filteredAndSortedTodos.sort((a, b) => {
       if (a.completed) return 1;
       if (b.completed) return -1;
       return 0;
     });
-  });
+  }
+
+  function filtered({ detail }) {
+    filteredAndSortedTodos = detail;
+    sort();
+  }
 
   import { createEventDispatcher } from "svelte";
   import TodoInput from "./TodoInput.svelte";
@@ -57,12 +64,9 @@
   <TodoInput defaults={{}} prompt="Add Todo:" on:submit={addNewTodo} />
 {/if}
 
-<FilterTodos
-  todos={list.todos}
-  on:filter={({ detail }) => (filteredTodos = detail)}
-/>
+<FilterTodos todos={list.todos} on:filter={filtered} />
 
-{#each filteredTodos as todo (todo.id)}
+{#each filteredAndSortedTodos as todo (todo.id)}
   <TodoItem
     {...todo}
     on:completed={(e) => {
