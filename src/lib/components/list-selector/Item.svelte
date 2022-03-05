@@ -1,6 +1,6 @@
 <script>
   import { currentList } from "$lib/stores/currentList";
-  import { createEventDispatcher, getAllContexts } from "svelte";
+  import { createEventDispatcher } from "svelte";
 
   export let list;
   export let editingLists;

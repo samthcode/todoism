@@ -29,7 +29,10 @@
   let editingLists = false;
 </script>
 
-<div class="selector" class:selector-no-list-options={!$settings.showListOptions}>
+<div
+  class="selector"
+  class:selector-no-list-options={!$settings.showListOptions}
+>
   {#each $lists as list}
     <ListSelectorItem
       on:edit={editList}

@@ -20,7 +20,10 @@
     <div class="explanation">
       This contols how tasks are viewed in the list view. Options:
       <ul>
-        <li>Default - title, checkbox, description, due date, and tags will be showed</li>
+        <li>
+          Default - title, checkbox, description, due date, and tags will be
+          showed
+        </li>
         <li>
           Expanded - same as default but the description will be rendered with
           newlines (as you wrote it)

@@ -19,7 +19,7 @@
   nav {
     background-color: $bg-light;
     padding: 1rem 1.5rem;
-    
+
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;

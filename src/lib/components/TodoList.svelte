@@ -1,13 +1,11 @@
 <script>
   import TodoItem from "$lib/components/TodoItem.svelte";
+  import { onMount } from "svelte";
+  import { getPriority } from "$lib/utils/todo.js";
 
   export let list;
 
   let filteredAndSortedTodos = list.todos;
-
-  import { onMount } from "svelte";
-
-  import { getPriority } from "$lib/utils/todo.js";
 
   onMount(sort);
 
