@@ -126,11 +126,13 @@
   </div>
   <main>
     {#if selectedList}
-      <TodoList
-        list={selectedList}
-        on:addtodo={addNewTodo}
-        on:completed={updateCompleted}
-      />
+      {#key selectedList || $lists}
+        <TodoList
+          list={selectedList}
+          on:addtodo={addNewTodo}
+          on:completed={updateCompleted}
+        />
+      {/key}
     {/if}
   </main>
 </div>

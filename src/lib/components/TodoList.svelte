@@ -3,6 +3,8 @@
 
   export let list;
 
+  let filteredTodos = list.todos;
+
   import { onMount } from "svelte";
 
   import { getPriority } from "$lib/utils/todo.js";
@@ -31,6 +33,7 @@
 
   import { createEventDispatcher } from "svelte";
   import TodoInput from "./TodoInput.svelte";
+  import FilterTodos from "./FilterTodos.svelte";
 
   let dispatch = createEventDispatcher();
 
@@ -54,7 +57,12 @@
   <TodoInput defaults={{}} prompt="Add Todo:" on:submit={addNewTodo} />
 {/if}
 
-{#each list.todos as todo (todo.id)}
+<FilterTodos
+  todos={list.todos}
+  on:filter={({ detail }) => (filteredTodos = detail)}
+/>
+
+{#each filteredTodos as todo (todo.id)}
   <TodoItem
     {...todo}
     on:completed={(e) => {
