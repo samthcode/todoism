@@ -1,5 +1,5 @@
 <script>
-  import ListSelector from "$lib/components/ListSelector.svelte";
+  import ListSelector from "$lib/components/list-selector/Selector.svelte";
   import TodoList from "$lib/components/TodoList.svelte";
   import { lists } from "$lib/stores/lists";
   import { currentList } from "$lib/stores/currentList";

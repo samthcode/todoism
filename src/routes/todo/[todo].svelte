@@ -10,7 +10,7 @@
     renderSimpleMarkdown,
     sanitiseInput,
   } from "$lib/utils/todo";
-  import TagList from "$lib/components/TagList.svelte";
+  import TagList from "$lib/components/shared/TagList.svelte";
 
   let theId = $page.params.todo;
   let todo, dueDateAsDate, dueDateFormatted;

@@ -1,7 +1,7 @@
 <script>
   import { createEventDispatcher } from "svelte";
   import { lists } from "$lib/stores/lists";
-  import ListSelectorItem from "./ListSelectorItem.svelte";
+  import ListSelectorItem from "./Item.svelte";
   import { settings } from "$lib/stores/settings";
 
   let dispatch = createEventDispatcher();
