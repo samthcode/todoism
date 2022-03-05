@@ -7,6 +7,7 @@
   import { browser } from "$app/env";
 
   import { v4 as uuidGeneratorV4 } from "uuid";
+  import { defaultFilterValues, filterValues } from "$lib/stores/filterValues";
 
   let selectedList;
   currentList.subscribe((value) => {
@@ -20,6 +21,7 @@
   function setSelectedListByListName(someName) {
     $currentList = someName;
     console.log(`currentList = ${$currentList}`);
+    $filterValues = defaultFilterValues;
   }
 
   function addNewTodo({ detail: { todo, listName } }) {
