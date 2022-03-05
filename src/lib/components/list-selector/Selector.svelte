@@ -44,10 +44,10 @@
   {/each}
   {#if $settings.showListOptions}
     <div class="list-selector-item inp">
-      <input type="text" class="new-list-inp" bind:value={newListName} />
       <button class="btn-accent new-list-btn" on:click={newList}
         >New List</button
       >
+      <input type="text" class="new-list-inp" bind:value={newListName} />
     </div>
   {/if}
 </div>
@@ -69,15 +69,20 @@
   .edit-lists-btn {
     margin: 1.5rem;
     margin-top: 0;
+    width: 7rem;
   }
   .new-list-inp {
     flex: 1 1 0;
     width: 0;
   }
   .new-list-btn {
-    margin-left: 0.5rem;
+    margin-right: 0.75rem;
+    @media only screen and (max-width: $mobile-size) {
+      margin-right: 0.5rem;
+    }
     margin-bottom: 0;
     flex-shrink: 0;
+    width: 7rem;
   }
   .selector {
     width: 17rem;

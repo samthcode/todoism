@@ -43,6 +43,9 @@
 </div>
 
 <style lang="scss">
+  input {
+    border: none;
+  }
   .remove-list {
     text-align: center;
     vertical-align: middle;
@@ -88,7 +91,10 @@
   }
 
   .list-selector-item-selected {
-    background-color: lighten($bg-dark, 5);
+    background-color: $bg-light;
+    input {
+      background-color: $bg-dark;
+    }
   }
 
   .list-name {
