@@ -1,7 +1,7 @@
 <script>
   import { createEventDispatcher } from "svelte";
   import { lists } from "$lib/stores/lists";
-  import ListSelectorItem from "./Item.svelte";
+  import Item from "./Item.svelte";
   import { settings } from "$lib/stores/settings";
 
   let dispatch = createEventDispatcher();
@@ -34,7 +34,7 @@
   class:selector-no-list-options={!$settings.showListOptions}
 >
   {#each $lists as list}
-    <ListSelectorItem
+    <Item
       on:edit={editList}
       on:select={selectList}
       on:remove={removeList}
@@ -43,7 +43,7 @@
     />
   {/each}
   {#if $settings.showListOptions}
-    <div class="list-selector-item">
+    <div class="list-selector-item inp">
       <input type="text" class="new-list-inp" bind:value={newListName} />
       <button class="btn-accent new-list-btn" on:click={newList}
         >New List</button
@@ -63,12 +63,16 @@
 {/if}
 
 <style lang="scss">
+  .inp:hover {
+    background-color: $bg-dark;
+  }
   .edit-lists-btn {
     margin: 1.5rem;
     margin-top: 0;
   }
   .new-list-inp {
     flex: 1 1 0;
+    width: 0;
   }
   .new-list-btn {
     margin-left: 0.5rem;
@@ -79,14 +83,8 @@
     width: 17rem;
     overflow-x: clip;
 
-    margin-top: 1.5rem;
-    margin-left: 1.5rem;
-    margin-bottom: 1rem;
-
     @media only screen and (max-width: $mobile-size) {
       width: auto;
-      margin-right: 1.5rem;
-      margin-bottom: 0.5rem;
     }
   }
   .selector-no-list-options {

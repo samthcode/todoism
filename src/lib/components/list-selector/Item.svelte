@@ -88,7 +88,7 @@
   }
 
   .list-selector-item-selected {
-    background-color: lighten($bg-light, 5);
+    background-color: lighten($bg-dark, 5);
   }
 
   .list-name {
