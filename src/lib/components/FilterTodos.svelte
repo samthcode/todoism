@@ -1,6 +1,6 @@
 <script>
   import { filterValues } from "$lib/stores/filterValues";
-  import { getPriority, getTags } from "$lib/utils/todo";
+  import { getPriority, hasMaybe } from "$lib/utils/todo";
   import { onMount } from "svelte";
   import { createEventDispatcher } from "svelte";
 
@@ -14,14 +14,12 @@
 
   $: filter($filterValues);
 
-  function filter({ priority, status }) {
+  function filter({ priority, status, maybe }) {
     dispatch(
       "filter",
       todos.filter((todo) => {
         let correctPriority = true;
         switch (priority) {
-          case "all":
-            break;
           case "none":
             correctPriority = getPriority(todo.title) === 0;
             break;
@@ -37,8 +35,6 @@
         }
         let correctStatus = true;
         switch (status) {
-          case "all":
-            break;
           case "todo":
             correctStatus = !todo.completed;
             break;
@@ -46,7 +42,16 @@
             correctStatus = todo.completed;
             break;
         }
-        return correctPriority && correctStatus;
+        let correctMaybe = true;
+        switch (maybe) {
+          case "hide":
+            correctMaybe = !hasMaybe(todo.title);
+            break;
+          case "only":
+            correctMaybe = hasMaybe(todo.title);
+            break;
+        }
+        return correctPriority && correctStatus && correctMaybe;
       })
     );
   }
@@ -67,6 +72,13 @@
     <option value="all">All</option>
     <option value="todo">Todo</option>
     <option value="completed">Completed</option>
+  </select>
+
+  <label for="maybe">Maybe:</label>
+  <select id="maybe" bind:value={$filterValues.maybe}>
+    <option value="show">Show</option>
+    <option value="hide">Hide</option>
+    <option value="only">Only</option>
   </select>
 </div>
 
