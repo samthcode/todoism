@@ -8,19 +8,13 @@
 
   export let todos;
 
-  let tags = [];
   onMount(() => {
-    for (const { title } of todos) {
-      tags = [...tags, ...getTags(title)];
-    }
-    tags = [...new Set(tags)];
-
     filter($filterValues);
   });
 
   $: filter($filterValues);
 
-  function filter({ priority, status, tags }) {
+  function filter({ priority, status }) {
     dispatch(
       "filter",
       todos.filter((todo) => {
