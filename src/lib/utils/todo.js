@@ -111,7 +111,7 @@ export const renderSimpleMarkdown = (text) => {
     .replace(urlRegex, '<a target="_blank" href="$&">$&</a>')
     .replace(/\*\*(.*?)\*\*/g, "<b>$1</b>")
     .replace(/\*(.*?)\*/g, "<i>$1</i>")
-    .replace(/(?:-[ \t].*\r?\n)+-[ \t].*/gm, (wholeList) => {
+    .replace(/(?:-[ \t].*\r?\n)*-[ \t].*/gm, (wholeList) => {
       let list = "<ul>";
       for (let li of wholeList.split(/\r?\n/)) {
         list += li.replace(/^-[ \t](.*)$/g, "<li>$1</li>");
