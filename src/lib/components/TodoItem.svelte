@@ -88,7 +88,9 @@
 
     max-width: 100%;
     background-color: $bg-light;
-    margin-bottom: 1.5rem;
+    &:not(:last-child) {
+      margin-bottom: 1.5rem;
+    }
     @media only screen and (max-width: $mobile-size) {
       margin-bottom: 0.5rem;
     }
