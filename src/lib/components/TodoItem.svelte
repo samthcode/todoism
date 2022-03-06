@@ -52,7 +52,11 @@
       class:completed
       class="desc"
     >
-      {@html renderSimpleMarkdown(desc)}
+      {#if $settings.taskView === "expanded"}
+        {@html renderSimpleMarkdown(desc)}
+      {:else}
+        {desc}
+      {/if}
     </div>
     {#if dueDate}<div class="due-date" class:completed>
         Due {dueDateFormatted}
