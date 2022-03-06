@@ -23,7 +23,7 @@
 <div
   class="list-selector-item"
   class:list-selector-item-selected={$currentList === list.name}
-  on:click={selectList}
+  on:mousedown={selectList}
 >
   {#if editingLists}
     <input
