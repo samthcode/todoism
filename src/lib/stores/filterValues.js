@@ -1,9 +1,9 @@
 import { writable } from "svelte/store";
 
-export const defaultFilterValues = {
+const defaultFilterValues = {
   priority: "all",
   status: "all",
-  maybe: "show"
+  maybe: "show",
 };
 
 export const filterValues = writable(defaultFilterValues);
